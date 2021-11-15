@@ -1,0 +1,84 @@
+
+.dashboard-form label{
+  margin-top: 20px;
+}
+
+.input-field {
+  background: #f9f9f9;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #0D5AE5;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.input-flex{
+  display:flex;
+  justify-content: space-between;
+}
+
+.textarea-field{
+  background: #f9f9f9;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 15px;
+  color: #0D5AE5;
+  padding: 20px;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+#vat-flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vat-flex {
+  width: 45%;
+}
+
+.file-flex {
+  min-width: 325px;
+  max-width: 450px;
+  background: #0D5AE5;
+  opacity: 0.5;
+  border: 2px solid #0D5AE5;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.icons-container span {
+  margin: 8px;
+}
+
+.buttons-flex {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  max-width: 300px !important;
+}
+
+.buttons-flex button{
+  width: 100px !important;
+  background-color: #0D5AE5;
+}
+
+#icon-eye-d {
+  cursor: pointer;
+}
+
+#icon-download-d {
+  cursor: pointer;
+}
+
+#file-name-admin {
+  max-width: 300px;
+}

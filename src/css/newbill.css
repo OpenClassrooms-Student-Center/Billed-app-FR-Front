@@ -1,0 +1,63 @@
+.form-newbill-container {
+  width: 100%;
+}
+
+.col-half {
+  margin:auto;
+  width: 75%;
+  margin-top: 16px;
+}
+
+.col-half-row {
+  display:flex;
+  width: 75%;
+  margin-left: 20px;
+  margin-top: 16px;
+}
+
+.blue-border {
+  opacity: 0.5;
+  border: 2px solid #0D5AE5 !important;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.flex-col {
+  margin-left: 50px;
+}
+
+.white-text {
+  color: #fff;
+}
+
+#btn-send-bill {
+  width: 100px;
+  background-color: #0E5AE5;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0.2px;
+  margin-top: 50px;
+}
+
+textarea, input, select {
+  color: #0E5AE5 !important;
+  opacity: 0.7 !important;
+}
+
+textarea:focus, input:focus, select:focus {
+  color: #0E5AE5 !important;
+  opacity: 1 !important;
+}
+
+*[placeholder] {
+  color: #0E5AE5 !important;
+}

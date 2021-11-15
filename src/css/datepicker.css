@@ -1,0 +1,81 @@
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#datepicker-frame {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 0 8px 0 black;
+    color: #333333;
+    font: 16px Tahoma;
+}
+
+#datepicker-frame ul {
+    list-style: none;
+    width: 300px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+#datepicker-frame li {
+    width: 220px;
+    height: 40px;
+    float: left;
+    text-align: center;
+}
+
+#datepicker-frame li:first-child,
+#datepicker-frame li:last-child {
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
+#datepicker-frame table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+#datepicker-frame .day td,
+#datepicker-frame .day th {
+    width: calc(300px / 7 - 2px);
+    height: calc(300px / 8 - 2px);
+    border-radius: 4px;
+    text-align: center;
+}
+
+#datepicker-frame .month td,
+#datepicker-frame .month th {
+    width: calc(300px / 4 - 2px);
+    height: calc(300px / 4 - 2px);
+    border-radius: 4px;
+    text-align: center;
+}
+
+#datepicker-frame .disabled {
+    color: #c8c8c8;
+}
+
+#datepicker-frame .today {
+    background-color: #a0a0ff;
+    color: white;
+}
+
+#datepicker-frame td:not(.disabled):not(.today):hover {
+    background-color: #d0d0d0;
+}
+
+#datepicker-frame .pointer {
+    cursor: pointer;
+}
