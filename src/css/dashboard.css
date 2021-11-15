@@ -1,0 +1,119 @@
+.dashboard-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-right-container {
+  position: absolute;
+  left: 530px;
+  top: 50px;
+  border: 2px solid #F3F5FA;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 23px;
+  width: calc(100% - 550px);
+  min-height: calc(100% - 92px);
+}
+
+.dashboard-form-container h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.bills-feed {
+  width: 390px;
+  position: absolute;
+  left: 120px;
+  top: 52px;
+}
+
+.status-bills-container {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.status-bills-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-bills-container h3 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.bill-card {
+  margin-top: 17px;
+  margin-bottom: 17px;
+  background: #0D5AE5;
+  border-radius: 8px;
+  padding: 17px;
+  color: #fff;
+  line-height: 25px;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+}
+
+.bill-card-name-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bill-card-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.bill-card-grey {
+  mix-blend-mode: normal;
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.name-price-container {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-type-container {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+}
+
+.centered-svg-container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+}
+
+#big-billed-icon {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.dashboard-svg-container {
+  position: absolute;
+  top: 40%; left: 50%;
+  transform: translate(-50%,-40%);
+}
+
+.arrow-icon {
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+

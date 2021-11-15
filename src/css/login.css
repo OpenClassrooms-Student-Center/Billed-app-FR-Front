@@ -1,0 +1,71 @@
+.page-div {
+  width: 80%;
+  margin:auto;
+  margin-top: 40px;
+  margin-top: 10%;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+
+}
+
+h2 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.card-body{
+  margin-bottom: 50px;
+  border-radius: 50px;
+}
+.card {
+  max-width: 500px;
+  margin:auto;
+}
+label {
+  padding-top:8px;
+  padding-bottom:8px;
+}
+input {
+  padding-top:8px;
+  padding-bottom:8px;
+}
+.title-container {
+  width: 200px;
+  margin:auto;
+  display: flex;
+  color: white;
+}
+.title-container h1 {
+  margin-left: 16px;
+  margin-bottom: 60px;
+}
+button {
+  background-color: #0E5AE5;
+}

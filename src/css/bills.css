@@ -1,0 +1,115 @@
+.content {
+  width: 100%;
+  margin-top: 76px; 
+  margin-left: 76px; 
+  margin-right: 76px;
+}
+
+.content-inner {
+  margin-top: 20px;
+  border: solid 1px lightgrey;
+  border-radius: 5px;
+  padding: 50px;
+  min-height: 100vh;
+}
+
+.content-header {
+  width: 100%; 
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-title{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 56px;
+}
+
+#btn-new-bill {
+  width: 350px;
+  height: 36px;
+  background-color: #0E5AE5;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0.2px;
+}
+
+#data-table {
+  text-align: left;
+  margin-top: 50px;
+  border: 2px solid #F3F5FA;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding-bottom: 16px;
+  height: 70vh;
+}
+
+.icon-actions {
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.table td, .table th {
+  border-top: 0px solid #fff !important;
+}
+
+.table thead th {
+  border-bottom: 0px solid #fff !important;
+}
+
+.table td, .table th {
+  border-top: 0px solid #fff !important;
+}
+
+thead {
+  text-align: left;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color:#F3F5FA !important;
+}
+
+th, td {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
+tr td:first-of-type {
+  font-weight: 500;
+}
+
+tr td:nth-of-type(2) {
+  font-weight: 500;
+  color: #0E5AE5;
+}
+
+tr td:nth-of-type(3) {
+  color:#979797;
+}
+
+tr td:nth-of-type(4) {
+  color:#979797;
+}
+
+tr td:nth-of-type(5) {
+  font-weight: 500;
+  color: #0E5AE5;
+}
+
+.bill-proof-container {
+  overflow: scroll;
+}
