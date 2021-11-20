@@ -5,7 +5,7 @@ Ce projet, dit frontend, est connecté à un service API backend que vous devez 
 Le projet backend se trouve ici: https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
 
 ## Organiser son espace de travail :
-Pour une bonne organization, vous pouvez créer un dossier bill-app dans lequel vous allez cloner le projet backend et par la suite, le projet frontent:
+Pour une bonne organization, vous pouvez créer un dossier bill-app dans lequel vous allez cloner le projet backend et par la suite, le projet frontend:
 
 Clonez le projet backend dans le dossier bill-app :
 ```
@@ -34,7 +34,7 @@ bill-app/
 
 Suivez les indications dans le README du projet backend.
 
-### étape 2 - Lancer le frontent :
+### étape 2 - Lancer le frontend :
 
 Allez au repo cloné :
 ```
@@ -78,4 +78,17 @@ $jest src/__tests__/your_test_file.js
 
 `http://127.0.0.1:8080/coverage/lcov-report/`
 
+## Comptes et utilisateurs :
 
+Vous pouvez vous connecter en utilisant les comptes:
+
+### administrateur : 
+```
+utilisateur : admin@test.tld 
+mot de passe : admin
+```
+### employé :
+```
+utilisateur : employee@test.tld
+mot de passe : employee
+```
