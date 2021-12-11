@@ -3,10 +3,10 @@ import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 
 export default class {
-  constructor({ document, onNavigate, firestore, localStorage }) {
+  constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.firestore = firestore
+    this.store = store
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
     if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
@@ -29,8 +29,8 @@ export default class {
 
   // not need to cover this function by tests
   getBills = () => {
-    if (this.firestore) {
-      return this.firestore
+    if (this.store) {
+      return this.store
       .bills()
       .list()
       .then(snapshot => {

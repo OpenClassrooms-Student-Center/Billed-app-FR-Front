@@ -54,7 +54,7 @@ class ApiEntity {
 
 
 
-class Firestore {
+class Store {
   constructor() {
     this.api = new Api({baseUrl: 'http://localhost:5678'})
   }
@@ -69,4 +69,4 @@ class Firestore {
   bills = () => new ApiEntity({key: 'bills', api: this.api})
 }
 
-export default new Firestore()
+export default new Store()

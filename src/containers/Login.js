@@ -4,12 +4,12 @@ export let PREVIOUS_LOCATION = ''
 
 // we use a class so as to test its methods in e2e tests
 export default class Login {
-  constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, firestore }) {
+  constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, store }) {
     this.document = document
     this.localStorage = localStorage
     this.onNavigate = onNavigate
     this.PREVIOUS_LOCATION = PREVIOUS_LOCATION
-    this.firestore = firestore
+    this.store = store
     const formEmployee = this.document.querySelector(`form[data-testid="form-employee"]`)
     formEmployee.addEventListener("submit", this.handleSubmitEmployee)
     const formAdmin = this.document.querySelector(`form[data-testid="form-admin"]`)
@@ -60,8 +60,8 @@ export default class Login {
 
   // not need to cover this function by tests
   login = (user) => {
-    if (this.firestore) {
-      return this.firestore
+    if (this.store) {
+      return this.store
       .login(JSON.stringify({
         email: user.email,
         password: user.password,
@@ -75,8 +75,8 @@ export default class Login {
 
   // not need to cover this function by tests
   createUser = (user) => {
-    if (this.firestore) {
-      return this.firestore
+    if (this.store) {
+      return this.store
       .users()
       .create({data:JSON.stringify({
         type: user.type,
