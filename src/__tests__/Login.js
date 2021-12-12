@@ -80,14 +80,14 @@ describe("Given that I am a user on login page", () => {
 
       let PREVIOUS_LOCATION = "";
 
-      const firebase = jest.fn();
+      const store = jest.fn();
 
       const login = new Login({
         document,
         localStorage: window.localStorage,
         onNavigate,
         PREVIOUS_LOCATION,
-        firebase,
+        store,
       });
 
       const handleSubmit = jest.fn(login.handleSubmitEmployee);
@@ -192,14 +192,14 @@ describe("Given that I am a user on login page", () => {
 
       let PREVIOUS_LOCATION = "";
 
-      const firebase = jest.fn();
+      const store = jest.fn();
 
       const login = new Login({
         document,
         localStorage: window.localStorage,
         onNavigate,
         PREVIOUS_LOCATION,
-        firebase,
+        store,
       });
 
       const handleSubmit = jest.fn(login.handleSubmitAdmin);

@@ -66,10 +66,10 @@ export const getStatus = (index) => {
 }
 
 export default class {
-  constructor({ document, onNavigate, firestore, bills, localStorage }) {
+  constructor({ document, onNavigate, store, bills, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.firestore = firestore
+    this.store = store
     $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
     $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
     $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
@@ -154,8 +154,8 @@ export default class {
 
   // not need to cover this function by tests
   getBillsAllUsers = () => {
-    if (this.firestore) {
-      return this.firestore
+    if (this.store) {
+      return this.store
       .bills()
       .list()
       .then(snapshot => {
@@ -174,8 +174,8 @@ export default class {
     
   // not need to cover this function by tests
   updateBill = (bill) => {
-    if (this.firestore) {
-    return this.firestore
+    if (this.store) {
+    return this.store
       .bills()
       .update({data: JSON.stringify(bill), selector: bill.id})
       .then(bill => bill)
