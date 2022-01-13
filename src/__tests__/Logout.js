@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { screen } from "@testing-library/dom"
 import Logout from "../containers/Logout.js"
 import '@testing-library/jest-dom/extend-expect'
