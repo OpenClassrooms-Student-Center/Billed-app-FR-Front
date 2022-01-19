@@ -99,7 +99,7 @@ describe('Given I am connected as an Admin', () => {
         document.body.innerHTML = ROUTES({ pathname })
       }
       const store = null
-
+      // modifie le localStorage par le  localStorageMock
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       const dashboard = new Dashboard({
         document, onNavigate, store, bills, localStorage: window.localStorage
