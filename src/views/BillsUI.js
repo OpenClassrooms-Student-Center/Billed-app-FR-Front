@@ -47,9 +47,12 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error)
   }
-  bills.forEach(element => {
-    console.log(element.date);
-  });
+
+  let sortedBills
+  if (bills) {
+    sortedBills = [...bills].sort((a, b) => new Date(b.date) - new Date(a.date))
+  }
+
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}
@@ -71,7 +74,7 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(sortedBills)}
           </tbody>
           </table>
         </div>
