@@ -1,8 +1,9 @@
-
+// renvoi un msg d'erreur si le status de la réponse n'est pas ok
 const jsonOrThrowIfError = async (response) => {
   if(!response.ok) throw new Error((await response.json()).message)
   return response.json()
 }
+
 
 class Api {
   constructor({baseUrl}) {
