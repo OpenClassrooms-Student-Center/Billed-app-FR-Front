@@ -23,3 +23,20 @@ describe("Given I am connected as an employee", () => {
     })
   })
 })
+describe('Given i am on the loading page',()=>{
+  test('Should show Loading...',()=>{
+    const html = BillsUI({loading : true})
+    document.body.innerHTML = html
+    expect(screen.getAllByText('Loading...')).toBeTruthy()
+
+
+  })
+})
+// ligne 49 billsUI
+describe('Given i am on error page', () => {
+  test('should show the error message',()=>{
+    const html = BillsUI({error : 'error message'})
+    document.body.innerHTML = html
+    expect(screen.getAllByText('error message')).toBeTruthy()
+  })
+})
