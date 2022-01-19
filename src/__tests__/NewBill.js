@@ -14,6 +14,7 @@ describe("Given I am connected as an employee", () => {
       document.body.innerHTML = html
       expect(screen.getAllByText('Envoyer une note de frais')).toBeTruthy()
     })
-    
+
   })
 })
+console.log('test');
