@@ -47,7 +47,9 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error)
   }
-  
+  bills.forEach(element => {
+    console.log(element.date);
+  });
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}
