@@ -75,6 +75,9 @@ export default class {
     $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
     this.getBillsAllUsers()
     new Logout({ localStorage, onNavigate })
+    bills.forEach(bill => {
+      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+    })
   }
 
   handleClickIconEye = () => {
@@ -171,7 +174,7 @@ export default class {
       .catch(console.log)
     }
   }
-    
+
   // not need to cover this function by tests
   updateBill = (bill) => {
     if (this.store) {

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, screen } from "@testing-library/dom"
+import {fireEvent, screen, waitFor} from "@testing-library/dom"
 import userEvent from '@testing-library/user-event'
 import DashboardFormUI from "../views/DashboardFormUI.js"
 import DashboardUI from "../views/DashboardUI.js"
@@ -48,7 +48,7 @@ describe('Given I am connected as an Admin', () => {
   })
 
   describe('When I am on Dashboard page and I click on arrow', () => {
-    test('Then, tickets list should be unfolding, and cars should contain first and lastname', async () => {
+    test('Then, tickets list should be unfolding, and cards should contain first and lastname', async () => {
 
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
@@ -60,15 +60,15 @@ describe('Given I am connected as an Admin', () => {
       }))
 
       const dashboard = new Dashboard({
-        document, onNavigate, store: null, bills, localStorage: window.localStorage
+        document, onNavigate, store: null, bills:bills.bills, localStorage: window.localStorage
       })
       const html = DashboardUI({ data: bills })
 
       document.body.innerHTML = html
 
-      const handleShowTickets1 = jest.fn((e) => dashboard.handleShowTickets(e, bills, 1))
-      const handleShowTickets2 = jest.fn((e) => dashboard.handleShowTickets(e, bills, 2))
-      const handleShowTickets3 = jest.fn((e) => dashboard.handleShowTickets(e, bills, 3))
+      const handleShowTickets1 = jest.fn((e) => dashboard.handleShowTickets(e, bills.bills, 1))
+      const handleShowTickets2 = jest.fn((e) => dashboard.handleShowTickets(e, bills.bills, 2))
+      const handleShowTickets3 = jest.fn((e) => dashboard.handleShowTickets(e, bills.bills, 3))
 
       const icon1 = screen.getByTestId('arrow-icon1')
       const icon2 = screen.getByTestId('arrow-icon2')
@@ -78,7 +78,9 @@ describe('Given I am connected as an Admin', () => {
       userEvent.click(icon1)
       expect(handleShowTickets1).toHaveBeenCalled()
       userEvent.click(icon1)
-
+      await waitFor(() => screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`) )
+      expect(screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`)).toBeTruthy()
+      /*
       icon2.addEventListener('click', handleShowTickets2)
       userEvent.click(icon2)
       expect(handleShowTickets2).toHaveBeenCalled()
@@ -86,7 +88,7 @@ describe('Given I am connected as an Admin', () => {
       icon3.addEventListener('click', handleShowTickets3)
       userEvent.click(icon3)
       expect(handleShowTickets3).toHaveBeenCalled()
-
+      */
     })
   })
 
