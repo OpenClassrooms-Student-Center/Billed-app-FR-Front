@@ -20,20 +20,16 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0] 
-    console.log('file', file);
     const filePath = e.target.value.split(/\\/g)
-    console.log('file' , filePath);
     const fileName = filePath[filePath.length-1]
-    console.log('filename' , fileName);
-    const formData = new FormData()
-    console.log('formData', formData);
-    const email = JSON.parse(localStorage.getItem("user")).email
-    console.log('email' , email);
-    formData.append('file', file)
-    formData.append('email', email)
+    const formData = new FormData() // crée un vouvel objet form vide
+    const email = JSON.parse(localStorage.getItem("user")).email //récupère l'email
+    formData.append('file', file) //ajoute une clé valeur a formData
+    formData.append('email', email)//ajoute une clé valeur a formData
+
     // test du format de l'image
     if(fileName.endsWith('jpg'|| 'jpeg' || 'png')){      
-      this.store
+      this.store 
         .bills()
         .create({
           data: formData,
@@ -42,7 +38,6 @@ export default class NewBill {
           }
         })
         .then(({fileUrl, key}) => {
-          console.log(fileUrl)
           this.billId = key
           this.fileUrl = fileUrl
           this.fileName = fileName

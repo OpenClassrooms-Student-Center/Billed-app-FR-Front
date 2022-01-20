@@ -26,9 +26,9 @@ describe("Given I am connected as an employee", () => {
       // modifie le localStorage par le  localStorageMock
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
-      let store = null
-      let localStorage = window.localStorage
-      const newBill = new NewBill({document, onNavigate, store , localStorage})
+      
+      
+      const newBill = new NewBill({document, onNavigate})
       expect(newBill).toBeDefined()
       const handleSubmit = jest.fn(newBill.handleSubmit)
       const newBillform = screen.getByTestId("form-new-bill")
@@ -56,6 +56,8 @@ describe("Given I am connected as an employee", () => {
       expect(fileBtn).toBeDefined()
       fileBtn.addEventListener('click', handleChangeFile)
       fireEvent.click(fileBtn)
+      expect(handleChangeFile).toHaveBeenCalled()
+
 
     })
 
