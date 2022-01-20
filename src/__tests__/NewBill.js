@@ -7,7 +7,6 @@ import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import {localStorageMock } from '../__mocks__/localStorage.js'
 import { ROUTES } from '../constants/routes.js'
-import store from '../__mocks__/store.js'
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
@@ -17,7 +16,7 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getAllByText('Envoyer une note de frais')).toBeTruthy()
     })
 
-    test('Then, I click on Justificatif handleSubmit called',()=>{
+    test('Then, I submit form-new-bill, handleSubmit called',()=>{
       const html = NewBillUI()
       document.body.innerHTML = html
       const onNavigate = (pathname) => {
@@ -27,7 +26,9 @@ describe("Given I am connected as an employee", () => {
       // modifie le localStorage par le  localStorageMock
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
-      const newBill = new NewBill({document, onNavigate, store : null, localStorage : window.localStorage })
+      let store = null
+      let localStorage = window.localStorage
+      const newBill = new NewBill({document, onNavigate, store , localStorage})
       expect(newBill).toBeDefined()
       const handleSubmit = jest.fn(newBill.handleSubmit)
       const newBillform = screen.getByTestId("form-new-bill")
@@ -35,6 +36,27 @@ describe("Given I am connected as an employee", () => {
       fireEvent.submit(newBillform)
       expect(handleSubmit).toHaveBeenCalled()
       
+    })
+
+    test('Then, I click on Justificatif, handleChangeFile called',()=> {
+      const html = NewBillUI()
+      document.body.innerHTML = html
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+      
+      // modifie le localStorage par le  localStorageMock
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
+      let store = null
+      let localStorage = window.localStorage
+      const newBill = new NewBill({document, onNavigate, store , localStorage})
+      const handleChangeFile = jest.fn(newBill.handleChangeFile)
+      const fileBtn = screen.getByTestId('file')
+      expect(fileBtn).toBeDefined()
+      fileBtn.addEventListener('click', handleChangeFile)
+      fireEvent.click(fileBtn)
+
     })
 
   })
