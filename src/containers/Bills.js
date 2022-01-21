@@ -38,8 +38,7 @@ export default class {
           .map(doc => {
             try {
               return {
-                ...doc,
-                // date: formatDate(doc.date),
+                ...doc,              
                 status: formatStatus(doc.status)
               }
             } catch(e) {

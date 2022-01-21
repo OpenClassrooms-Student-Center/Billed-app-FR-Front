@@ -211,13 +211,13 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
 describe("Given I am a user connected as Admin", () => {
   describe("When I navigate to Dashboard", () => {
     test("fetches bills from mock API GET", async () => {
-       const getSpy = jest.spyOn(store, "get")
-       const bills = await store.get()
+       const getSpy = jest.spyOn(store, "get") // surveille l'appel de la méthode get de l'objet store
+       const bills = await store.get() 
        expect(getSpy).toHaveBeenCalledTimes(1)
        expect(bills.data.length).toBe(4)
     })
     test("fetches bills from an API and fails with 404 message error", async () => {
-      store.get.mockImplementationOnce(() =>
+      store.get.mockImplementationOnce(() => // simule un rejet de la promesse
         Promise.reject(new Error("Erreur 404"))
       )
       const html = DashboardUI({ error: "Erreur 404" })

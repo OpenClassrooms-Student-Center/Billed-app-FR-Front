@@ -1,7 +1,6 @@
 import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
-
 import Actions from './Actions.js'
 
 const row = (bill) => {
@@ -47,7 +46,7 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error)
   }
-
+  // tri des bills par date
   let sortedBills
   if (bills) {
     sortedBills = [...bills].sort((a, b) => new Date(b.date) - new Date(a.date))
