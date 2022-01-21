@@ -25,6 +25,7 @@ export default class Login {
     }
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
+
       .catch(
         (err) => this.createUser(user)
       )
