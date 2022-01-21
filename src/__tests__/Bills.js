@@ -90,7 +90,7 @@ describe('Given i am on bills page',()=>{
 describe("Given I am a user connected as Employee", () => {
   describe("When I navigate to BillUI", () => {
     test("fetches bills from mock API GET", async () => {
-       const getSpy = jest.spyOn(store, "get") // surveille l'appel de la méthode get de l'objet store mocké
+       const getSpy = jest.spyOn(store, "get") // fonction simulée qui surveille l'appel de la méthode get de l'objet store mocké
        const bills = await store.get() //récupère les données du store mocké
        expect(getSpy).toHaveBeenCalledTimes(1) //sore.get a été appelé 1 fois
        expect(bills.data.length).toBe(4) // les données contiennent 4 objets
@@ -99,7 +99,7 @@ describe("Given I am a user connected as Employee", () => {
       store.get.mockImplementationOnce(() => // simule un rejet de la promesse
         Promise.reject(new Error("Erreur 404"))
       )
-      const html = DashboardUI({ error: "Erreur 404" })
+      const html = BillsUI({ error: "Erreur 404" })
       document.body.innerHTML = html
       const message = await screen.getByText(/Erreur 404/)
       expect(message).toBeTruthy()
@@ -108,7 +108,7 @@ describe("Given I am a user connected as Employee", () => {
       store.get.mockImplementationOnce(() =>
         Promise.reject(new Error("Erreur 500"))
       )
-      const html = DashboardUI({ error: "Erreur 500" })
+      const html = BillsUI({ error: "Erreur 500" })
       document.body.innerHTML = html
       const message = await screen.getByText(/Erreur 500/)
       expect(message).toBeTruthy()
