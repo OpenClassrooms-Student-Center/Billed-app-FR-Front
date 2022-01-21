@@ -7,6 +7,8 @@ import BillsUI from "../views/BillsUI.js"
 import Bills from "../containers/Bills.js"
 import { bills } from "../fixtures/bills.js"
 import {ROUTES_PATH,ROUTES} from "../constants/routes.js"
+import store from "../__mocks__/store.js"
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
 
@@ -76,6 +78,10 @@ describe('Given i am on bills page',()=>{
       expect(iconEye1).toBeDefined()        
       fireEvent.click(iconEye1)
       expect(handleClickIconEye).toHaveBeenCalled()
+      const modale = document.getElementById('modaleFile')
+      expect(modale).toBeTruthy()
+      expect(modale).toHaveTextContent('Justificatif')
+
 
   
 })
