@@ -8,9 +8,19 @@ import Bills from "../containers/Bills.js"
 import { bills } from "../fixtures/bills.js"
 import {ROUTES_PATH,ROUTES} from "../constants/routes.js"
 import store from "../__mocks__/store.js"
+import { localStorageMock} from '../__mocks__/localStorage.js'
+import Router from '../app/Router.js'
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
+    test("Then bill icon in vertical layout should be highlighted", () => {
+     
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'ser en tant qu'employé dans le local storage
+      Object.defineProperty(window, "location", { value: { hash: ROUTES_PATH['Bills'] } });// défini l'url comme étant '#employee/bills'
+      document.body.innerHTML = `<div id="root"></div>` // crée le noeud pour que le router injecte l'objet correspondant à l'url
+      Router();// lance le router
+      expect(screen.getByTestId('icon-window').classList.contains('active-icon')).toBe(true) // vérifie si l'icone est en surbrillance
+    })
 
     test("Then bills should be ordered from earliest to latest", () => {
       const html = BillsUI({ data: bills })

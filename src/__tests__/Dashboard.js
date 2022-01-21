@@ -45,6 +45,7 @@ describe('Given I am connected as an Admin', () => {
       document.body.innerHTML = html
       expect(screen.getAllByText('Erreur')).toBeTruthy()
     })
+    
   })
 
   describe('When I am on Dashboard page and I click on arrow', () => {
@@ -211,7 +212,7 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
 describe("Given I am a user connected as Admin", () => {
   describe("When I navigate to Dashboard", () => {
     test("fetches bills from mock API GET", async () => {
-       const getSpy = jest.spyOn(store, "get") // surveille l'appel de la méthode get de l'objet store
+       const getSpy = jest.spyOn(store, "get") // fonction simulée qui surveille l'appel de la méthode get de l'objet store
        const bills = await store.get() 
        expect(getSpy).toHaveBeenCalledTimes(1)
        expect(bills.data.length).toBe(4)
