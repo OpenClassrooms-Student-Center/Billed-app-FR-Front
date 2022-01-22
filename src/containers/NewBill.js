@@ -8,7 +8,7 @@ export default class NewBill {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
-    const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
+    const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)    
     formNewBill.addEventListener("submit", this.handleSubmit)
     const file = this.document.querySelector(`input[data-testid="file"]`)
     file.addEventListener("change", this.handleChangeFile)
@@ -16,8 +16,11 @@ export default class NewBill {
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
+    this.validFormat = false 
   }
+
   handleChangeFile = e => {
+    console.log('ok');
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0] 
     const filePath = e.target.value.split(/\\/g)
@@ -26,46 +29,58 @@ export default class NewBill {
     const email = JSON.parse(localStorage.getItem("user")).email //récupère l'email
     formData.append('file', file) //ajoute une clé valeur a formData
     formData.append('email', email)//ajoute une clé valeur a formData
-
-    // test du format de l'image
-    if(fileName.endsWith('jpg'|| 'jpeg' || 'png')){      
-      this.store 
-        .bills()
-        .create({
-          data: formData,
-          headers: {
-            noContentType: true
-          }
-        })
-        .then(({fileUrl, key}) => {
-          this.billId = key
-          this.fileUrl = fileUrl
-          this.fileName = fileName
-        }).catch(error => console.error(error))
+    this.validFormat = true   // défini que le format est valide
+      
+      // test du format de l'image
+      if ( /\.(jpe?g|png)$/i.test(fileName) ){  
+        this.validFormat= true  // vérifie l'extension du fichier        
+          this.store 
+            .bills()
+            .create({
+              data: formData,
+              headers: {
+                noContentType: true
+              }
+            })
+            .then(({fileUrl, key}) => {
+              this.billId = key
+              this.fileUrl = fileUrl
+              this.fileName = fileName
+            }).catch(error => console.error(error))
     }else{
-      alert('format non supporté veuillez sélectionner un média au format .jpg , .jpeg ou .png ' )
-      return
+      alert('format non supporté veuillez sélectionner un média au format .jpg , .jpeg ou .png ' ) // format non valide alert un mesg
+      this.validFormat = false // défini que le format est invalide
+      console.log(validFormat);
+      return 
     }
   }
+  
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
-    const bill = {
-      email,
-      type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
-      name:  e.target.querySelector(`input[data-testid="expense-name"]`).value,
-      amount: parseInt(e.target.querySelector(`input[data-testid="amount"]`).value),
-      date:  e.target.querySelector(`input[data-testid="datepicker"]`).value,
-      vat: e.target.querySelector(`input[data-testid="vat"]`).value,
-      pct: parseInt(e.target.querySelector(`input[data-testid="pct"]`).value) || 20,
-      commentary: e.target.querySelector(`textarea[data-testid="commentary"]`).value,
-      fileUrl: this.fileUrl,
-      fileName: this.fileName,
-      status: 'pending'
+    if(this.validFormat === true){ //si le format du justificatif est valide on crée un nouveau bill
+      const bill = {
+        email,
+        type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
+        name:  e.target.querySelector(`input[data-testid="expense-name"]`).value,
+        amount: parseInt(e.target.querySelector(`input[data-testid="amount"]`).value),
+        date:  e.target.querySelector(`input[data-testid="datepicker"]`).value,
+        vat: e.target.querySelector(`input[data-testid="vat"]`).value,
+        pct: parseInt(e.target.querySelector(`input[data-testid="pct"]`).value) || 20,
+        commentary: e.target.querySelector(`textarea[data-testid="commentary"]`).value,
+        fileUrl: this.fileUrl,
+        fileName: this.fileName,
+        status: 'pending'
+      }
+
+      this.updateBill(bill)
+      this.onNavigate(ROUTES_PATH['Bills'])
     }
-    this.updateBill(bill)
-    this.onNavigate(ROUTES_PATH['Bills'])
+    else{ //sinon on empêche la soumission  du formulaire
+      alert('format du Justificatif non supporté veuillez le modifier') //on demande à l'utilisateur de le modifier
+      return
+    }
   }
 
   // not need to cover this function by tests
