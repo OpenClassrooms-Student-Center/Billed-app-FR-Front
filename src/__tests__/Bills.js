@@ -13,6 +13,7 @@ import Router from '../app/Router.js'
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
+
     test("Then bill icon in vertical layout should be highlighted", () => {
      
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'ser en tant qu'employé dans le local storage
@@ -81,11 +82,12 @@ describe('Given i am on bills page',()=>{
         document,
         onNavigate: (pathname) => document.body.innerHTML = ROUTES({ pathname })
       })  
-      const AllIconEye = screen.getAllByTestId('icon-eye')
-      const iconEye1 = AllIconEye[0]
+      const allIconEye = screen.getAllByTestId('icon-eye')
+      expect(allIconEye).toBeTruthy()
+      const iconEye1 = allIconEye[0]
       const handleClickIconEye = jest.fn(bill.handleClickIconEye(iconEye1))
       iconEye1.addEventListener('click', handleClickIconEye)
-      expect(iconEye1).toBeDefined()        
+      expect(iconEye1).toBeTruthy()        
       fireEvent.click(iconEye1)
       expect(handleClickIconEye).toHaveBeenCalled()
       const modale = document.getElementById('modaleFile')

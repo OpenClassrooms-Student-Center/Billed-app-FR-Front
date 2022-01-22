@@ -1,7 +1,6 @@
 import { ROUTES_PATH } from '../constants/routes.js'
 import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
-
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document

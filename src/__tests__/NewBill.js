@@ -12,7 +12,7 @@ import Router from "../app/Router.js"
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
     test("Then mail icon in vertical layout should be highlighted",()=>{
-      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'ser en tant qu'employé dans le local storage
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'user en tant qu'employé dans le local storage
       Object.defineProperty(window, "location", { value: { hash: ROUTES_PATH['NewBill'] } });// défini l'url comme étant '#employee/bill/new'
       document.body.innerHTML = `<div id="root"></div>` // crée le noeud pour que le router injecte l'objet correspondant à l'url
       Router();// lance le router
@@ -56,7 +56,7 @@ describe("Given I am connected as an employee", () => {
       // modifie le localStorage par le  localStorageMock
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
-      let store = null
+      let store = jest.fn()
       let localStorage = window.localStorage
       const newBill = new NewBill({document, onNavigate, store , localStorage})
       const handleChangeFile = jest.fn(newBill.handleChangeFile)
