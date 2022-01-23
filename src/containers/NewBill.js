@@ -4,7 +4,7 @@ import {localStorageMock} from '../__mocks__/localStorage.js'
 
 
 export default class NewBill {
-  constructor({ document, onNavigate, store, localStorage }) {
+  constructor({ document, onNavigate, store, localStorage}) {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
@@ -16,9 +16,8 @@ export default class NewBill {
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
-    this.validFormat = false 
+    this.validFormat = null
   }
-
   handleChangeFile = e => {
     console.log('ok');
     e.preventDefault()
@@ -32,8 +31,8 @@ export default class NewBill {
     this.validFormat = true   // défini que le format est valide
       
       // test du format de l'image
-      if ( /\.(jpe?g|png)$/i.test(fileName) ){  
-        this.validFormat= true  // vérifie l'extension du fichier        
+      if ( /\.(jpe?g|png)$/i.test(fileName) ){   // vérifie l'extension du fichier        
+        this.validFormat= true 
           this.store 
             .bills()
             .create({
@@ -50,7 +49,6 @@ export default class NewBill {
     }else{
       alert('format non supporté veuillez sélectionner un média au format .jpg , .jpeg ou .png ' ) // format non valide alert un mesg
       this.validFormat = false // défini que le format est invalide
-      console.log(validFormat);
       return 
     }
   }

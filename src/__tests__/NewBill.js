@@ -27,6 +27,7 @@ describe("Given I am connected as an employee", () => {
     test('Then, I submit form-new-bill, handleSubmit called',()=>{
       const html = NewBillUI()
       document.body.innerHTML = html
+      
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
@@ -48,7 +49,7 @@ describe("Given I am connected as an employee", () => {
 
     test('Then, I click on Justificatif, handleChangeFile called',()=> {
       const html = NewBillUI()
-      document.body.innerHTML = html
+      document.body.innerHTML = html  
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
