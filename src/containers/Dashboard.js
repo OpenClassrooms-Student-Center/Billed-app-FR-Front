@@ -151,13 +151,13 @@ export default class {
    * @returns 
    */
   handleShowTickets(e, bills, index) {
+    console.log('handleShowTickets');
     if (this.counter === undefined || this.index !== index) this.counter = 0 // declare un compteur de click, si on ne clique pas sur la même flèeche le compteur se remet a 0
     if (this.index === undefined || this.index !== index) this.index = index // défini l'index de la flèche sur laquelle on clique    
     if (this.counter % 2 === 0) {                                            // crée un toggle pour afficher ou masquer le contenu
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      console.log($(`#arrow-icon${this.index}`));
       $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
+        .html(cards(filteredBills(bills, getStatus(this.index)))) //ouvre et rend les bills correspondants
       this.counter ++
       console.log(this.counter);
     } else {
@@ -170,7 +170,6 @@ export default class {
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
-    console.log(bills.length);
 
     return bills
 
