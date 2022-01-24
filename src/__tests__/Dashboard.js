@@ -227,17 +227,15 @@ describe("Given I am a user connected as Admin", () => {
       router()
       window.onNavigate(ROUTES_PATH.Dashboard)
       await waitFor(() => screen.getByText("Validations"))
+      const contentPending  = await screen.getByText("En attente (1)")
+      expect(contentPending).toBeTruthy()
+      const contentRefused  = await screen.getByText("Refusé (2)")
+      expect(contentRefused).toBeTruthy()
       expect(screen.getByTestId("big-billed-icon")).toBeTruthy()
     })
-
-    test("fetches bills from an API and fails with 404 message error", async () => {
-     jest.spyOn(mockStore, "bills")
-      mockStore.bills.mockImplementationOnce(() => {
-        return {
-          list : () =>  {
-            return Promise.reject(new Error("Erreur 404"))
-          }
-        }})
+  describe("When an error occurs on API", () => {
+    beforeEach(() => {
+      jest.spyOn(mockStore, "bills")
       Object.defineProperty(
           window,
           'localStorage',
@@ -250,9 +248,16 @@ describe("Given I am a user connected as Admin", () => {
       const root = document.createElement("div")
       root.setAttribute("id", "root")
       document.body.appendChild(root)
-
       router()
+    })
+    test("fetches bills from an API and fails with 404 message error", async () => {
 
+      mockStore.bills.mockImplementationOnce(() => {
+        return {
+          list : () =>  {
+            return Promise.reject(new Error("Erreur 404"))
+          }
+        }})
       window.onNavigate(ROUTES_PATH.Dashboard)
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 404/)
@@ -260,33 +265,21 @@ describe("Given I am a user connected as Admin", () => {
     })
 
     test("fetches messages from an API and fails with 500 message error", async () => {
-      jest.spyOn(mockStore, "bills")
+
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
             return Promise.reject(new Error("Erreur 500"))
           }
         }})
-      Object.defineProperty(
-          window,
-          'localStorage',
-          { value: localStorageMock }
-      )
-      window.localStorage.setItem('user', JSON.stringify({
-        type: 'Admin',
-        email: "a@a"
-      }))
-      const root = document.createElement("div")
-      root.setAttribute("id", "root")
-      document.body.appendChild(root)
-
-      router()
 
       window.onNavigate(ROUTES_PATH.Dashboard)
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 500/)
       expect(message).toBeTruthy()
     })
+  })
+
   })
 })
 
