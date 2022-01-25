@@ -152,7 +152,7 @@ export default class {
    */
   handleShowTickets(e, bills, index) {
     console.log('handleShowTickets');
-    if (this.counter === undefined || this.index !== index) this.counter = 0 // declare un compteur de click, si on ne clique pas sur la même flèeche le compteur se remet a 0
+    if (this.counter === undefined || this.index !== index) this.counter = 0 // declare un compteur de click, si on ne clique pas sur la même flèche le compteur se remet a 0
     if (this.index === undefined || this.index !== index) this.index = index // défini l'index de la flèche sur laquelle on clique    
     if (this.counter % 2 === 0) {                                            // crée un toggle pour afficher ou masquer le contenu
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
@@ -169,7 +169,16 @@ export default class {
    
     bills.forEach(bill => {
       // $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-      $(`#open-bill${bill.id}`, `#status-bills-container${this.index}` ).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`, `#status-bills-container${this.index}` ).click((e) => {
+        this.handleEditTicket(e, bill, bills)
+      })
+      // let var1 = $(`#status-bills-container${this.index}` )
+      // console.log('conteneur' , var1);
+      // let var2 = $(`#open-bill${bill.id}`)
+      // console.log('var2',var2);
+      let all = $(`#open-bill${bill.id}`, `#status-bills-container${this.index}` )
+      console.log('all', all);
+      
     })
 
     return bills
