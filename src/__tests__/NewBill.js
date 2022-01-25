@@ -5,9 +5,11 @@ import '@testing-library/jest-dom'
 import { screen,fireEvent, getByTestId} from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
+import BillsUI  from '../views/BillsUI.js'
 import {localStorageMock } from '../__mocks__/localStorage.js'
 import { ROUTES ,ROUTES_PATH} from '../constants/routes.js'
 import Router from "../app/Router.js"
+import store from "../__mocks__/store.js"
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
@@ -70,5 +72,66 @@ describe("Given I am connected as an employee", () => {
 
     })
 
+  })
+})
+// test d'intégration POST
+describe("Given I am a user connected as Admin", () => {
+  describe("When I navigate to Dashboard", () => {
+    test("fetches bills from mock API POST", async () => {
+      const html = NewBillUI()
+      document.body.innerHTML = html  
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+     const testBill = 
+      {
+        "id": "test1",
+        "vat": "80",
+        "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a",
+        "status": "pending",
+        "type": "Hôtel et logement",
+        "commentary": "séminaire billed",
+        "name": "encore",
+        "fileName": "preview-facture-free-201801-pdf-1.jpg",
+        "date": "2004-04-04",
+        "amount": 400,
+        "commentAdmin": "ok",
+        "email": "a@a",
+        "pct": 20      
+      }
+      const newBill = new NewBill({document, onNavigate, store , localStorage})
+      expect(newBill).toBeDefined()
+      expect(screen.getByText('Envoyer une note de frais')).toBeTruthy()
+
+      const handleSubmit = jest.fn(newBill.handleSubmit)
+      const newBillform = screen.getByTestId("form-new-bill")
+      newBillform.addEventListener('submit', handleSubmit)
+      fireEvent.submit(newBillform)
+      expect(handleSubmit).toHaveBeenCalled()
+      
+      
+       const getSpy = jest.spyOn(store, "post") // fonction simulée qui surveille l'appel de la méthode get de l'objet store       
+       const bills = await store.post(testBill) 
+       expect(getSpy).toHaveBeenCalledTimes(1)
+
+    })
+    test("fetches bills from an API and fails with 404 message error", async () => {
+      store.post.mockImplementationOnce(() => // simule un rejet de la promesse
+        Promise.reject(new Error("Erreur 404"))
+      )
+      const html = BillsUI({ error: "Erreur 404" })
+      document.body.innerHTML = html
+      const message = await screen.getByText(/Erreur 404/)
+      expect(message).toBeTruthy()
+    })
+    test("fetches messages from an API and fails with 500 message error", async () => {
+      store.post.mockImplementationOnce(() =>
+        Promise.reject(new Error("Erreur 500"))
+      )
+      const html = BillsUI({ error: "Erreur 500" })
+      document.body.innerHTML = html
+      const message = await screen.getByText(/Erreur 500/)
+      expect(message).toBeTruthy()
+    })
   })
 })

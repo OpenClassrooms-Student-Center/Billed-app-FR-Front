@@ -63,7 +63,8 @@ export default {
       }]
     })
   },
-  post(){
-    return Promise.resolve()
+  post:(data)=>{
+    return Promise.resolve(data)
   }
+ 
 }

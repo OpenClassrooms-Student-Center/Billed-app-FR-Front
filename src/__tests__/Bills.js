@@ -12,11 +12,12 @@ import { localStorageMock} from '../__mocks__/localStorage.js'
 import Router from '../app/Router.js'
 
 describe("Given I am connected as an employee", () => {
+  //billUI tests
   describe("When I am on Bills Page", () => {
 
     test("Then bill icon in vertical layout should be highlighted", () => {
      
-      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'ser en tant qu'employé dans le local storage
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// défini l'User en tant qu'employé dans le local storage
       Object.defineProperty(window, "location", { value: { hash: ROUTES_PATH['Bills'] } });// défini l'url comme étant '#employee/bills'
       document.body.innerHTML = `<div id="root"></div>` // crée le noeud pour que le router injecte l'objet correspondant à l'url
       Router();// lance le router
@@ -41,7 +42,7 @@ describe('Given i am on the loading page',()=>{
 
   })
 })
-// ligne 49 billsUI
+
 describe('Given i am on error page', () => {
   test('should show the error message',()=>{
     const html = BillsUI({error : 'error message'})
@@ -53,7 +54,7 @@ describe('Given i am on error page', () => {
 //Bill tests
 
 describe('Given i am on bills page',()=>{
-  //methode handleClickNewBill
+    //methode handleClickNewBill
     test('Should called the handleClickNewBill method when i click on newBill button',()=>{  
       window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
       const html = BillsUI({ data: bills })
@@ -73,7 +74,7 @@ describe('Given i am on bills page',()=>{
       expect(screen.getByText('Envoyer une note de frais')).toBeTruthy()
     })
 
-    })
+    
     //methode handleClickIconEye
     test('Should called the handleClickIconEye when i click on iconEye',()=>{    
       const html = BillsUI({ data: bills })
@@ -92,12 +93,10 @@ describe('Given i am on bills page',()=>{
       expect(handleClickIconEye).toHaveBeenCalled()
       const modale = document.getElementById('modaleFile')
       expect(modale).toBeTruthy()
-      expect(modale).toHaveTextContent('Justificatif')
+      expect(modale).toHaveTextContent('Justificatif')  
+    })
 
-
-  
 })
-
 // test d'intégration GET
 describe("Given I am a user connected as Employee", () => {
   describe("When I navigate to BillUI", () => {
