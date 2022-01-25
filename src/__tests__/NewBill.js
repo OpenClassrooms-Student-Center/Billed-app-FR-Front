@@ -82,7 +82,7 @@ describe("Given I am a user connected as Admin", () => {
       document.body.innerHTML = html  
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
-      }
+      }      
      const testBill = 
       {
         "id": "test1",

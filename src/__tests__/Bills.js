@@ -8,7 +8,6 @@ import Bills from "../containers/Bills.js"
 import { bills } from "../fixtures/bills.js"
 import {ROUTES_PATH,ROUTES} from "../constants/routes.js"
 import store from "../__mocks__/store.js"
-import { localStorageMock} from '../__mocks__/localStorage.js'
 import Router from '../app/Router.js'
 
 describe("Given I am connected as an employee", () => {
