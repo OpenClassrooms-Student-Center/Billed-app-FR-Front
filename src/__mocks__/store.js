@@ -64,7 +64,10 @@ export default {
     })
   },
   post:(data)=>{
-    return Promise.resolve(data)
+    return Promise.resolve({
+      data,
+      status : 200
+    })
   }
  
 }

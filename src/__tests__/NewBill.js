@@ -125,22 +125,14 @@ describe("Given I am a user connected as Admin", () => {
         "commentary": "test2",
         "type": "Restaurants et bars",
         "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=4df6ed2c-12c8-42a2-b013-346c1346f732"
-      }
-      // const newBill = new NewBill({document, onNavigate, store , localStorage})
-      // expect(newBill).toBeDefined()
-      // expect(screen.getByText('Envoyer une note de frais')).toBeTruthy()
-
-      // const handleSubmit = jest.fn(newBill.handleSubmit)
-      // const newBillform = screen.getByTestId("form-new-bill")
-      // newBillform.addEventListener('submit', handleSubmit)
-      // fireEvent.submit(newBillform)
-      // expect(handleSubmit).toHaveBeenCalled()
-      
+      }      
       
        const getSpy = jest.spyOn(store, "post") // fonction simulée qui surveille l'appel de la méthode get de l'objet store       
        const bills = await store.post(testBill) 
        expect(getSpy).toHaveBeenCalledTimes(1)
-       expect(bills.id).toEqual("qcCK3SzECmaZAGRrHjaC")
+       expect(bills.status).toBe(200)
+       expect(bills.data.status).toBe("refused")
+       expect(bills.data.id).toBe("qcCK3SzECmaZAGRrHjaC")
       
 
     })
