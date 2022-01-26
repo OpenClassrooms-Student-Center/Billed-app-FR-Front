@@ -16,7 +16,7 @@ export default class NewBill {
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
-    this.validFormat = null
+  
   }
   handleChangeFile = e => {
     console.log('ok');
@@ -28,11 +28,12 @@ export default class NewBill {
     const email = JSON.parse(localStorage.getItem("user")).email //récupère l'email
     formData.append('file', file) //ajoute une clé valeur a formData
     formData.append('email', email)//ajoute une clé valeur a formData
-    this.validFormat = true   // défini que le format est valide
+    
       
       // test du format de l'image
-      if ( /\.(jpe?g|png)$/i.test(fileName) ){   // vérifie l'extension du fichier        
-        this.validFormat= true 
+      /*istanbul ignore next*/ 
+      if ( /\.(jpe?g|png)$/i.test(fileName) ){   // vérifie l'extension du fichier       
+        
           this.store 
             .bills()
             .create({
@@ -47,8 +48,7 @@ export default class NewBill {
               this.fileName = fileName
             }).catch(error => console.error(error))
     }else{
-      alert('format non supporté veuillez sélectionner un média au format .jpg , .jpeg ou .png ' ) // format non valide alert un mesg
-      this.validFormat = false // défini que le format est invalide
+      alert('format non supporté veuillez sélectionner un média au format .jpg , .jpeg ou .png ' ) // format non valide alert un mesg      
       return 
     }
   }
@@ -57,7 +57,7 @@ export default class NewBill {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
-    if(this.validFormat === true){ //si le format du justificatif est valide on crée un nouveau bill
+    
       const bill = {
         email,
         type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
@@ -71,14 +71,9 @@ export default class NewBill {
         fileName: this.fileName,
         status: 'pending'
       }
-
       this.updateBill(bill)
       this.onNavigate(ROUTES_PATH['Bills'])
-    }
-    else{ //sinon on empêche la soumission  du formulaire
-      alert('format du Justificatif non supporté veuillez le modifier') //on demande à l'utilisateur de le modifier
-      return
-    }
+   
   }
 
   // not need to cover this function by tests
