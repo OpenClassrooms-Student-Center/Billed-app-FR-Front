@@ -20,7 +20,10 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  // Sort array data by Date
+  const bills = data.sort((a, b) => new Date(b.date) - new Date(a.date))
+  
+  return (bills && bills.length) ? bills.map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
