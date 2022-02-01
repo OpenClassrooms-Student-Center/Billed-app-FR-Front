@@ -127,7 +127,7 @@ describe("Given I am a user connected as Admin", () => {
         "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=4df6ed2c-12c8-42a2-b013-346c1346f732"
       }      
       
-       const getSpy = jest.spyOn(store, "post") // fonction simulée qui surveille l'appel de la méthode get de l'objet store       
+       const getSpy = jest.spyOn(store, "post") // fonction simulée qui surveille l'appel de la méthode post de l'objet store       
        const bills = await store.post(testBill) 
        expect(getSpy).toHaveBeenCalledTimes(1)
        expect(bills.status).toBe(200)
