@@ -82,3 +82,7 @@
 #file-name-admin {
   max-width: 300px;
 }
+
+.modal-body img{
+  width: 100%;
+}

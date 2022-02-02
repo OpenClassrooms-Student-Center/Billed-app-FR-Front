@@ -1,7 +1,7 @@
 .content {
   width: 100%;
   margin-top: 76px; 
-  margin-left: 76px; 
+  margin-left: 156px; 
   margin-right: 76px;
 }
 
@@ -110,6 +110,6 @@ tr td:nth-of-type(5) {
   color: #0E5AE5;
 }
 
-.bill-proof-container {
-  overflow: scroll;
+.bill-proof-container img{
+  width: 100%;
 }
