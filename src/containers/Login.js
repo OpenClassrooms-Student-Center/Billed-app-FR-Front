@@ -34,7 +34,7 @@ export default class Login {
         PREVIOUS_LOCATION = this.PREVIOUS_LOCATION
         this.document.body.style.backgroundColor="#fff"
       })
-    
+
   }
 
   handleSubmitAdmin = e => {
@@ -92,4 +92,4 @@ export default class Login {
       return null
     }
   }
-} 
+}
