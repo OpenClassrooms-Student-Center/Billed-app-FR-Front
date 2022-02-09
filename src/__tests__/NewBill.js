@@ -29,7 +29,7 @@ describe("Given I am connected as an employee", () => {
     test('Then, I submit form-new-bill, handleSubmit called',()=>{
       const html = NewBillUI()
       document.body.innerHTML = html
-      
+      let pathname =  ROUTES_PATH['NewBill']      
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
@@ -52,16 +52,15 @@ describe("Given I am connected as an employee", () => {
     test('Then, I click on Justificatif, handleChangeFile called',()=> {
       const html = NewBillUI()
       document.body.innerHTML = html  
+      let pathname =  ROUTES_PATH['NewBill']   
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
       
       // modifie le localStorage par le  localStorageMock
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
-      let store = jest.fn()
-      let localStorage = window.localStorage
-      const newBill = new NewBill({document, onNavigate, store , localStorage})
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))    
+      const newBill = new NewBill({document, onNavigate})
       const handleChangeFile = jest.fn(newBill.handleChangeFile)
       const fileBtn = screen.getByTestId('file')
       expect(fileBtn).toBeDefined()
@@ -80,6 +79,8 @@ describe("When I select a file", () => {
     window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// Set user as Employee in localStorage
     const html = NewBillUI()
     document.body.innerHTML = html
+    let pathname =  ROUTES_PATH['NewBill']   
+
     const newBill = new NewBill({
       document,
       onNavigate: (pathname) => document.body.innerHTML = ROUTES({ pathname }),
@@ -107,6 +108,8 @@ describe("Given I am a user connected as Admin", () => {
     test("fetches bills from mock API POST", async () => {
       const html = NewBillUI()
       document.body.innerHTML = html  
+      let pathname =  ROUTES_PATH['NewBill']   
+
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }      

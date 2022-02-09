@@ -171,14 +171,7 @@ export default class {
       // $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
       $(`#open-bill${bill.id}`, `#status-bills-container${this.index}` ).click((e) => {
         this.handleEditTicket(e, bill, bills)
-      })
-      // let var1 = $(`#status-bills-container${this.index}` )
-      // console.log('conteneur' , var1);
-      // let var2 = $(`#open-bill${bill.id}`)
-      // console.log('var2',var2);
-      let all = $(`#open-bill${bill.id}`, `#status-bills-container${this.index}` )
-      console.log('all', all);
-      
+      })      
     })
 
     return bills

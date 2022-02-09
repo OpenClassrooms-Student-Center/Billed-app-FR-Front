@@ -78,6 +78,7 @@ describe('Given i am on bills page',()=>{
     test('Should called the handleClickIconEye when i click on iconEye',()=>{    
       const html = BillsUI({ data: bills })
       document.body.innerHTML = html
+      let pathname =  ROUTES_PATH['Bills']
       const bill= new Bills({
         document,
         onNavigate: (pathname) => document.body.innerHTML = ROUTES({ pathname })
