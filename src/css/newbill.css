@@ -3,13 +3,13 @@
 }
 
 .col-half {
-  margin:auto;
+  margin: auto;
   width: 75%;
   margin-top: 16px;
 }
 
 .col-half-row {
-  display:flex;
+  display: flex;
   width: 75%;
   margin-left: 20px;
   margin-top: 16px;
@@ -17,7 +17,7 @@
 
 .blue-border {
   opacity: 0.5;
-  border: 2px solid #0D5AE5 !important;
+  border: 2px solid #0d5ae5 !important;
   box-sizing: border-box;
   border-radius: 5px;
 }
@@ -39,7 +39,7 @@ label {
 
 #btn-send-bill {
   width: 100px;
-  background-color: #0E5AE5;
+  background-color: #0e5ae5;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -48,16 +48,31 @@ label {
   margin-top: 50px;
 }
 
-textarea, input, select {
-  color: #0E5AE5 !important;
+textarea,
+input,
+select {
+  color: #0e5ae5 !important;
   opacity: 0.7 !important;
 }
 
-textarea:focus, input:focus, select:focus {
-  color: #0E5AE5 !important;
+textarea:focus,
+input:focus,
+select:focus {
+  color: #0e5ae5 !important;
   opacity: 1 !important;
 }
 
 *[placeholder] {
-  color: #0E5AE5 !important;
+  color: #0e5ae5 !important;
+}
+
+.hideErrorMessage {
+  display: none;
+}
+
+#errorFileType,
+#errorExpenseName {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: red;
 }
