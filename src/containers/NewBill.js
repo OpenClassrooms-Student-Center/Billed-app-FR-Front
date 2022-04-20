@@ -29,7 +29,6 @@ export default class NewBill {
     formData.append("email", email);
     if (extensionCorrect) {
       document.getElementById("errorFileType").classList.add("hideErrorMessage");
-      console.log("Good-FileType");
       this.store
         .bills()
         .create({
@@ -39,7 +38,7 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-          console.log(fileUrl);
+          // console.log(fileUrl);
           this.billId = key;
           this.fileUrl = fileUrl;
           this.fileName = fileName;
@@ -48,16 +47,12 @@ export default class NewBill {
     } else {
       document.getElementById("errorFileType").classList.remove("hideErrorMessage");
       this.document.querySelector(`input[data-testid='file']`).value = null;
-      console.log("Error-FileType");
     }
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      'e.target.querySelector(`input[data-testid="datepicker"]`).value',
-      e.target.querySelector(`input[data-testid="datepicker"]`).value
-    );
+    // console.log(e.target.querySelector(`input[data-testid="datepicker"]`).value);
     const email = JSON.parse(localStorage.getItem("user")).email;
     const bill = {
       email,

@@ -46,7 +46,7 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error);
   }
-  console.log(bills);
+  // console.log(bills);
   return `
     <div class='layout'>
       ${VerticalLayout(120)}
