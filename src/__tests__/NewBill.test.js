@@ -186,7 +186,7 @@ describe("Given I am a user connected as employee", () => {
       };
       const bills = mockStore.bills(newBill);
       expect(getSpy).toHaveBeenCalledTimes(1);
-      expect(bills.data.length).toBe(5);
+      expect((await bills.list()).length).toBe(4);
     });
 
     test("fetches bills from an API and fails with 404 message error", async () => {

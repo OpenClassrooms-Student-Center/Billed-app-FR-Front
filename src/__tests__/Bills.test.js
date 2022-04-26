@@ -42,10 +42,10 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
     });
-    jest.mock("../fixtures/bills.js");
-    test("getBills", () => {
-      expect(() => getBills()).toThrow("e");
-    });
+    // jest.mock("../fixtures/bills.js");
+    // test("getBills", () => {
+    //   expect(() => getBills()).toThrow("e");
+    // });
   });
 
   describe("When I click on New Bill btn", () => {
@@ -78,6 +78,20 @@ describe("Given I am connected as an employee", () => {
 
       expect(handleClickNewBill).toHaveBeenCalled();
       expect(screen.queryByText("Envoyer une note de frais")).toBeTruthy();
+    });
+  });
+  describe("When i get bills", () => {
+    test("Then it should render bills", async () => {
+      const bills = new Bills({
+        document,
+        onNavigate,
+        store: mockStore,
+        localStorage: window.localStorage,
+      });
+      const getBills = jest.fn(() => bills.getBills());
+      const value = await getBills();
+      expect(getBills).toHaveBeenCalled();
+      expect(value.length).toBe(4);
     });
   });
 
@@ -125,7 +139,7 @@ describe("Given I am connected as an employee", () => {
           const getSpy = jest.spyOn(mockStore, "bills");
           const bills = await mockStore.bills();
           expect(getSpy).toHaveBeenCalledTimes(1);
-          expect(bills.data.length).toBe(4);
+          expect((await bills.list()).length).toBe(4);
         });
       });
       describe("When it fails with a 404 error message", () => {
