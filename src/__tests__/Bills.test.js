@@ -5,6 +5,7 @@
 import { screen, waitFor } from "@testing-library/dom";
 import BillsUI from "../views/BillsUI.js";
 import { bills } from "../fixtures/bills.js";
+import { getBills } from "../fixtures/bills.js";
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import router from "../app/Router.js";
@@ -41,6 +42,10 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
     });
+    jest.mock("../fixtures/bills.js");
+    test("getBills", () => {
+      expect(() => getBills()).toThrow("e");
+    });
   });
 
   describe("When I click on New Bill btn", () => {
@@ -58,8 +63,6 @@ describe("Given I am connected as an employee", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
-      const Store = null;
-
       const bills = new Bills({
         document,
         onNavigate,

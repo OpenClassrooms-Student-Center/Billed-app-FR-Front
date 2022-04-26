@@ -8,7 +8,7 @@ import NewBillUI from "../views/NewBillUI.js";
 import NewBill from "../containers/NewBill.js";
 import mockStore from "../__mocks__/store";
 import BillsUI from "../views/BillsUI.js";
-import { ROUTES, ROUTES_PATH } from "../constants/routes";
+import { ROUTES } from "../constants/routes";
 
 jest.mock("../app/store", () => mockStore);
 
@@ -84,7 +84,6 @@ describe("Given I am connected as an employee", () => {
           files: [new File(["bill.png"], "bill.png", { type: "image/png" })],
         },
       });
-
       expect(handleChangeFile).toHaveBeenCalled();
       expect(fileInput.files[0].name).toBe("bill.png");
     });
