@@ -17,11 +17,21 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    const allowedFileTypes = ['image/jpeg','image/png','image/jpeg']
+    let file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+
+    // check for file mime type
+    if(!allowedFileTypes.includes(file.type)){
+      // reset file input and stop the process
+      this.document.querySelector(`input[data-testid="file"]`).value = ''
+      return
+    }
+    console.log(file.type)
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
+
     formData.append('file', file)
     formData.append('email', email)
 
