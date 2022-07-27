@@ -86,6 +86,7 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
+    console.log(bill)
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
@@ -131,25 +132,43 @@ export default class {
   }
 
   handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
-    if (this.counter % 2 === 0) {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
-    } else {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html("")
-      this.counter ++
-    }
+    
+    const billFeeds = document.querySelector('.bills-feed')
+    const span = e.target.closest('span')
 
+    // toggle the icon
+    span.classList.contains('arrow-icon-opened') 
+      ? span.classList.replace('arrow-icon-opened','arrow-icon-closed')  
+      : span.classList.replace('arrow-icon-closed','arrow-icon-opened') 
+   console.log(span)
+
+    const contentToDisplay = span.classList.contains('arrow-icon-opened')
+                            ? cards(filteredBills(bills, getStatus(index)))
+                            : ''
+    this.document.querySelector(`#status-bills-container${index}`).innerHTML = contentToDisplay
+    // if (this.index === undefined || this.index !== index) this.index = index
+    // if (this.counter === undefined || this.index !== index) this.counter = 0
+    // console.log("index",this.index !== index)
+    // console.log("this.counter",this.index)
+    // if (this.counter % 2 === 0) {
+    //   $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
+    //   $(`#status-bills-container${this.index}`)
+    //   .html(cards(filteredBills(bills, getStatus(this.index))))
+    //    this.counter ++
+    // } else {
+    //   $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
+    //   $(`#status-bills-container${this.index}`)
+    //   .html("")
+    //   this.counter ++
+    // }
+    
+    
+    // console.log("this.counter updated:",this.counter)
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
-    return bills
+    // return bills
 
   }
 

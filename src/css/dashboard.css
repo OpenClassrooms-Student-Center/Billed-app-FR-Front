@@ -112,7 +112,11 @@
   transform: translate(-50%,-40%);
 }
 
-.arrow-icon {
+.arrow-icon-opened {
+  transform: rotate(0deg);
+  cursor: pointer;
+}
+.arrow-icon-closed {
   transform: rotate(90deg);
   cursor: pointer;
 }
