@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { screen } from "@testing-library/dom"
 import VerticalLayout from "../views/VerticalLayout"
 import { localStorageMock } from "../__mocks__/localStorage.js"

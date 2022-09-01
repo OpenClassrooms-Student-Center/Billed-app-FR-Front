@@ -1,4 +1,9 @@
 export const formatDate = (dateStr) => {
+  // attribute a placeholder date for bad dateStr format
+  const regex = /^\d{4}-\d{2}-\d{2}$/
+  if(!regex.test(dateStr)) {
+    dateStr = '2011-11-11'
+  }
   const date = new Date(dateStr)
   const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(date)
   const mo = new Intl.DateTimeFormat('fr', { month: 'short' }).format(date)

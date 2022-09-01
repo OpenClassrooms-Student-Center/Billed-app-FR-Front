@@ -8,19 +8,18 @@ import Logout from "./Logout.js"
 export const filteredBills = (data, status) => {
   return (data && data.length) ?
     data.filter(bill => {
+
       let selectCondition
 
       // in jest environment
       if (typeof jest !== 'undefined') {
         selectCondition = (bill.status === status)
-      }
-      /* istanbul ignore next */
-      else {
+      } else {
         // in prod environment
         const userEmail = JSON.parse(localStorage.getItem("user")).email
         selectCondition =
           (bill.status === status) &&
-          ![...USERS_TEST, userEmail].includes(bill.email)
+          [...USERS_TEST, userEmail].includes(bill.email)
       }
 
       return selectCondition
@@ -68,20 +67,21 @@ export const getStatus = (index) => {
 }
 
 export default class {
-  constructor({ document, onNavigate, store, bills, localStorage }) {
+  constructor({ document, onNavigate, firestore, bills, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.store = store
+    this.firestore = firestore
     $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
     $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
     $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
+    this.getBillsAllUsers()
     new Logout({ localStorage, onNavigate })
   }
 
   handleClickIconEye = () => {
     const billUrl = $('#icon-eye-d').attr("data-bill-url")
     const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
-    $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
+    $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
     if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
   }
 
@@ -100,7 +100,7 @@ export default class {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
-        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
+        <div id="big-billed-icon"> ${BigBilledIcon} </div>
       `)
       $('.vertical-navbar').css({ height: '120vh' })
       this.counter ++
@@ -145,7 +145,12 @@ export default class {
       this.counter ++
     }
 
-    bills.forEach(bill => {
+    // bills.forEach caused chain events, I replaced it by filtered bills 
+    // bills.forEach(bill => {
+    //   $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+    // })
+
+    filteredBills(bills, getStatus(this.index)).forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
@@ -153,34 +158,32 @@ export default class {
 
   }
 
+  // not need to cover this function by tests
   getBillsAllUsers = () => {
-    if (this.store) {
-      return this.store
+    if (this.firestore) {
+      return this.firestore
       .bills()
-      .list()
+      .get()
       .then(snapshot => {
-        const bills = snapshot
+        const bills = snapshot.docs
         .map(doc => ({
           id: doc.id,
-          ...doc,
-          date: doc.date,
-          status: doc.status
+          ...doc.data(),
+          date: doc.data().date,
+          status: doc.data().status
         }))
         return bills
       })
-      .catch(error => {
-        throw error;
-      })
+      .catch(console.log)
     }
   }
-
+    
   // not need to cover this function by tests
-  /* istanbul ignore next */
   updateBill = (bill) => {
-    if (this.store) {
-    return this.store
-      .bills()
-      .update({data: JSON.stringify(bill), selector: bill.id})
+    if (this.firestore) {
+    return this.firestore
+      .bill(bill.id)
+      .update(bill)
       .then(bill => bill)
       .catch(console.log)
     }

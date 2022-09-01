@@ -109,7 +109,3 @@ tr td:nth-of-type(5) {
   font-weight: 500;
   color: #0E5AE5;
 }
-
-.bill-proof-container {
-  overflow: scroll;
-}
