@@ -18,6 +18,13 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+
+    const extensionFile = file.name.match(/\.[0-9a-z]+$/i)[0];
+   
+    const fileType = [".png", ".jpg", ".jpeg"]
+    const errorFile = document.querySelector('[data-testid="file-error"]')
+  
+
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
@@ -25,20 +32,32 @@ export default class NewBill {
     formData.append('file', file)
     formData.append('email', email)
 
-    this.store
-      .bills()
-      .create({
-        data: formData,
-        headers: {
-          noContentType: true
-        }
-      })
-      .then(({fileUrl, key}) => {
-        console.log(fileUrl)
-        this.billId = key
-        this.fileUrl = fileUrl
-        this.fileName = fileName
-      }).catch(error => console.error(error))
+    if(extensionFile.includes(fileType)){
+      console.log(errorFile)
+      errorFile.classList.remove("show");
+      errorFile.textContent = "";
+      this.store
+        .bills()
+        .create({
+          data: formData,
+          headers: {
+            noContentType: true,
+          },
+        })
+        .then(({ fileUrl, key }) => {
+          console.log(fileUrl, "---", key);
+          this.billId = key;
+          this.fileUrl = fileUrl;
+          this.fileName = fileName;
+        })
+        .catch((error) => console.error(error));
+    } else {
+      //reset value
+      e.target.value = "";
+      // display error Message
+      errorFile.textContent = "Uniquement JPG, JPEG ou PNG";
+      errorFile.classList.add("show");
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
@@ -62,6 +81,7 @@ export default class NewBill {
   }
 
   // not need to cover this function by tests
+   /* istanbul ignore next */
   updateBill = (bill) => {
     if (this.store) {
       this.store

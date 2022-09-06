@@ -14,6 +14,7 @@ export default class {
       icon.addEventListener('click', () => this.handleClickIconEye(icon))
     })
     new Logout({ document, localStorage, onNavigate })
+
   }
 
   handleClickNewBill = () => {
@@ -22,9 +23,18 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
+    console.log(billUrl)
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
+   // const extentIsNull = billUrl.match(/\.[0-9a-z]+$/i);
+
+   if(!billUrl.includes("null")){
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
     $('#modaleFile').modal('show')
+   }else{
+    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><p>Image non disponible</p></div>`)
+    $('#modaleFile').modal('show')
+   }
+  
   }
 
   getBills = () => {
@@ -44,7 +54,6 @@ export default class {
             } catch(e) {
               // if for some reason, corrupted data was introduced, we manage here failing formatDate function
               // log the error and return unformatted date in that case
-              console.log(e,'for',doc)
               return {
                 ...doc,
                 date: doc.date,
