@@ -22,7 +22,7 @@ export default class NewBill {
   handleChangeFile = (e) => {
 
     e.preventDefault();
-    console.log("event : ", e.target.value);
+    //console.log("event : ", e.target.value);
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
 
@@ -55,7 +55,7 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-          console.log(fileUrl, "---", key);
+        //  console.log(fileUrl, "---", key);
           this.billId = key;
           this.fileUrl = fileUrl;
           this.fileName = fileName;

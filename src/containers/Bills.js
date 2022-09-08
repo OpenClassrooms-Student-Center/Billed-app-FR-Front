@@ -1,5 +1,5 @@
 import { ROUTES_PATH } from '../constants/routes.js'
-import { formatDate, formatStatus } from "../app/format.js"
+import { convertToDate, formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 
 export default class {
@@ -14,7 +14,6 @@ export default class {
       icon.addEventListener('click', () => this.handleClickIconEye(icon))
     })
     new Logout({ document, localStorage, onNavigate })
-
   }
 
   handleClickNewBill = () => {
@@ -23,18 +22,10 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
-    console.log(billUrl)
+   // console.log("url: ", billUrl)
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
-   // const extentIsNull = billUrl.match(/\.[0-9a-z]+$/i);
-
-   if(!billUrl.includes("null")){
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
-    $('#modaleFile').modal('show')
-   }else{
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><p>Image non disponible</p></div>`)
-    $('#modaleFile').modal('show')
-   }
-  
+    !billUrl == "null"? $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`) : $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><p>Image non disponible</p></div>`)
+      $('#modaleFile').modal('show')    
   }
 
   getBills = () => {
@@ -48,12 +39,13 @@ export default class {
             try {
               return {
                 ...doc,
-                date: formatDate(doc.date),
+                date:  doc?.date? formatDate(doc?.date): "non definit",
                 status: formatStatus(doc.status)
               }
             } catch(e) {
-              // if for some reason, corrupted data was introduced, we manage here failing formatDate function
-              // log the error and return unformatted date in that case
+            // if for some reason, corrupted data was introduced, we manage here failing formatDate function
+            // log the error and return unformatted date in that case
+            //  console.log(e,'for',doc)
               return {
                 ...doc,
                 date: doc.date,
@@ -61,9 +53,29 @@ export default class {
               }
             }
           })
-          console.log('length', bills.length)
+         // console.log('length', bills.length)
         return bills
       })
     }
   }
+
 }
+
+/**
+ * Sort copy of bills by date
+ * @param {Array of Object} bills 
+ * @returns Array of Object bills
+ */
+export const sortBillsByDate = (bills) => {
+  const billsCopy = [...bills];
+
+  billsCopy.sort((a, b) => {
+    const date1 = convertToDate(a.date);
+    const date2 = convertToDate(b.date);
+
+    if (date1 <= date2) return 1;
+    if (date1 > date2) return -1;
+  });
+
+  return billsCopy;
+};

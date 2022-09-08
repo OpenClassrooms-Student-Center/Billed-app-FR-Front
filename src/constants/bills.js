@@ -12,17 +12,3 @@ export const  MONTHS_FR = {
     "Nov.": 10,
     "Déc.": 11,
   };
-  export const  MONTHS_EN = {
-    "Jan.": 0,
-    "Feb.": 1,
-    "Mar.": 2,
-    "Apr.": 3,
-    "May.": 4,
-    "Jui.": 5,
-    "Jun.": 6,
-    "Agus.": 7,
-    "Sep.": 8,
-    "Oct.": 9,
-    "Nov.": 10,
-    "Dec.": 11,
-  };
