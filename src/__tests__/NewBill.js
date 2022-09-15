@@ -75,6 +75,49 @@ describe("Given I am connected as an employee", () => {
       })
     })
 
+    // POST new bill integration test 
+    describe("When I submit a new valid bill", () => {
+      test("Then a new bill should be created", () => {
+        //On charge le dom avec la vue NewBill
+        document.body.innerHTML = NewBillUI()
+        // On récupère le formulaire
+        const submitForm =  screen.getByTestId('form-new-bill')
+        // On créé un nouvel objet NewBill
+        const newBillClass = new NewBill({ document, onNavigate, store: mockStore, localStorage: window.localStorage })
+        // On surveille son evenement de soumission
+        const handleSubmit = jest.fn(newBillClass.handleSubmit)
+        submitForm.addEventListener('submit', handleSubmit)
+
+        // On créé une Bill avec des éléments valides
+        const newValidBill = {
+          type: "Transports",
+          name: "validBill",
+          date: "2022-07-01",
+          amount: 50,
+          vat: 70,
+          pct: 20,
+          fileUrl: "https://localhost:3456/images/test.jpg",
+          fileName: "test.jpg"
+        }
+
+        // On rentre ces lement dans les champs du formulaire
+        document.querySelector(`select[data-testid="expense-type"]`).value = newValidBill.type
+        document.querySelector(`input[data-testid="expense-name"]`).value = newValidBill.name
+        document.querySelector(`input[data-testid="datepicker"]`).value = newValidBill.date
+        document.querySelector(`input[data-testid="amount"]`).value = newValidBill.amount
+        document.querySelector(`input[data-testid="vat"]`).value = newValidBill.vat
+        document.querySelector(`input[data-testid="pct"]`).value = newValidBill.pct
+        document.querySelector(`textarea[data-testid="commentary"]`).value = newValidBill.commentary
+        newBillClass.fileUrl = newValidBill.fileUrl
+        newBillClass.fileName = newValidBill.fileName
+
+        // On soumet le formulaire
+        fireEvent.submit(submitForm)
+
+        // On regarde si la soumission s'est bien effectuée
+        expect(handleSubmit).toHaveBeenCalled()
+      })
+    })
 
   })
 })
