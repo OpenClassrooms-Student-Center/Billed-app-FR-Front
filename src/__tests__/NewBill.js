@@ -3,19 +3,23 @@
  */
 
 import '@testing-library/jest-dom'
-import { fireEvent, screen, waitFor } from "@testing-library/dom"
+import { fireEvent, screen } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import {localStorageMock} from "../__mocks__/localStorage.js"
 import mockStore from "../__mocks__/store.js"
 
 
-// Setup
+// Initialisation
+// On charge le dom avec le contenu du LocalStorage
 Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+// On ajoute un utilisateur de type employee
 window.localStorage.setItem('user', JSON.stringify({
   type: 'Employee'
 }))
+// On défini une constante de navigation
 const onNavigate = jest.fn()
+// On défini une alerte pour les message d'erreur
 window.alert = jest.fn()
 
 describe("Given I am connected as an employee", () => {
