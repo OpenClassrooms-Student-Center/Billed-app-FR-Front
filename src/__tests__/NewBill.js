@@ -29,7 +29,8 @@
    router();
  
    describe("When I am on NewBill Page", () => {
-     test("Then Title text content should be displyed", async () => {
+    //Ensuite, le contenu du texte du titre doit être affiché
+     test("Then Title text content should be displayed", async () => {
        window.onNavigate(ROUTES_PATH.NewBill);
  
        expect(screen.getAllByText("Envoyer une note de frais")).toBeTruthy();
@@ -45,6 +46,7 @@
    });
  
    describe("when I submit the form with empty fields", () => {
+    //alors je devrais rester sur la nouvelle page de facture
      test("then I should stay on new 'Bill page'", () => {
        // Navigate to the new page
        window.onNavigate(ROUTES_PATH.NewBill);
@@ -75,6 +77,7 @@
    });
  
    describe("when I upload a file with the wrong format", () => {
+    //alors il devrait renvoyer un message d'erreur
      test("then it should return an error message", async () => {
        document.body.innerHTML = NewBillUI();
        const onNavigate = (pathname) => {
@@ -107,6 +110,7 @@
    });
  
    describe("when I upload a file with the good format", () => {
+    //alors le fichier d'entrée devrait montrer le nom de fichier
      test("then input file should show the file name", async () => {
        document.body.innerHTML = NewBillUI();
        const onNavigate = (pathname) => {
@@ -163,6 +167,7 @@
    });
  
    describe("when APi is working well", () => {
+    //alors je devrais être envoyé sur la page des factures avec les factures mises à jour
      test("then i should be sent on bills page with bills updated", async () => {
        const newBill = new NewBill({
          document,
@@ -183,6 +188,7 @@
      });
  
      describe("When an error occurs on API", () => {
+      //alors il devrait afficher un message d'erreur
        test("then it should display a message error", async () => {
          console.error = jest.fn();
          window.onNavigate(ROUTES_PATH.NewBill);
