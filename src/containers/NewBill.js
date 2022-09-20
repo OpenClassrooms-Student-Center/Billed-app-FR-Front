@@ -1,7 +1,6 @@
 import { ROUTES_PATH } from "../constants/routes.js";
 import Logout from "./Logout.js";
 
-
 export default class NewBill {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document;
@@ -20,9 +19,8 @@ export default class NewBill {
   }
 
   handleChangeFile = (e) => {
-
     e.preventDefault();
-    //console.log("event : ", e.target.value);
+    console.log("event : ", e.target.value);
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
 
@@ -55,7 +53,7 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-        //  console.log(fileUrl, "---", key);
+          console.log(fileUrl, "---", key);
           this.billId = key;
           this.fileUrl = fileUrl;
           this.fileName = fileName;
@@ -101,12 +99,15 @@ export default class NewBill {
 
   // not need to cover this function by tests
   updateBill = (bill) => {
+   
     if (this.store) {
+     
       this.store
         .bills()
         .update({ data: JSON.stringify(bill), selector: this.billId })
         .then(() => {
           this.onNavigate(ROUTES_PATH["Bills"]);
+          this.localStorage.clear()
         })
         .catch((error) => console.error(error));
     }
