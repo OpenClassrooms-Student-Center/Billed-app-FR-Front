@@ -3,6 +3,8 @@ import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
 
 import Actions from './Actions.js'
+import { bills } from '../fixtures/bills.js'
+import { formatDate } from '../app/format.js'
 
 const row = (bill) => {
   return (`
@@ -20,7 +22,10 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  return (data && data.length) ? data
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .map(bill => {return {...bill, date: formatDate(bill.date)}})
+  .map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
