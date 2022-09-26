@@ -14,7 +14,6 @@ export const filteredBills = (data, status) => {
       if (typeof jest !== 'undefined') {
         selectCondition = (bill.status === status)
       }
-      /* istanbul ignore next */
       else {
         // in prod environment
         const userEmail = JSON.parse(localStorage.getItem("user")).email
@@ -95,8 +94,11 @@ export default class {
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
-      this.counter ++
-    } else {
+      
+    }
+
+    // Bug Hunt
+    /* else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
@@ -104,7 +106,8 @@ export default class {
       `)
       $('.vertical-navbar').css({ height: '120vh' })
       this.counter ++
-    }
+    } */ 
+    
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
