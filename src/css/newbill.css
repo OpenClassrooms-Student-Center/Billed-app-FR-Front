@@ -68,6 +68,6 @@ textarea:focus, input:focus, select:focus {
   transition: color 350ms;
 }
 
-.error.show {
+.error-message.show {
   color: red;
 }
