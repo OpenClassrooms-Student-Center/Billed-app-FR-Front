@@ -18,9 +18,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/jquery": "^3.5.14",
     "express": "^4.17.1",
     "global": "^4.4.0",
     "jquery": "^3.5.1",
+    "package.json": "^2.0.1",
     "path": "^0.12.7"
   },
   "devDependencies": {
@@ -30,7 +32,7 @@
     "@testing-library/user-event": "^12.0.11",
     "babel-jest": "^26.1.0",
     "jest": "^26.1.0",
-    "jest-environment-jsdom": "^27.4.6",
+    "jest-environment-jsdom": "^27.5.1",
     "jest-html-reporter": "^3.1.3"
   }
 }
