@@ -4,12 +4,14 @@ import LoadingPage from "./LoadingPage.js"
 
 import Actions from './Actions.js'
 
+
+// ici on gere l'affichage d'une ligne 
 const row = (bill) => {
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+     <td>${bill.date}</td> 
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -17,14 +19,26 @@ const row = (bill) => {
       </td>
     </tr>
     `)
-  }
+}
+// fin de l'affichage ligne 
 
+
+// Ici on renvoie l'ensemble des lignes si affichage il y'a lieu ou on créer l'affichages des lignes pour chaque facture
 const rows = (data) => {
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
+// fin de l'affichages de l'ensembles des lignes
+
 
 export default ({ data: bills, loading, error }) => {
-  
+
+  // Fix bills by sorting them accurate by date
+  if (bills) {
+    bills = bills.sort((a, b) => new Date(b.date) - new Date(a.date))
+  }
+  // End Fix 
+
+
   const modal = () => (`
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -47,7 +61,7 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error)
   }
-  
+
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}
