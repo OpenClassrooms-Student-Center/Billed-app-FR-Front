@@ -23,20 +23,40 @@ const row = (bill) => {
 // fin de l'affichage ligne 
 
 
-// Ici on renvoie l'ensemble des lignes si affichage il y'a lieu ou on créer l'affichages des lignes pour chaque facture
+// If data contains something we ask to run the Build Table row function for each Bill 
 const rows = (data) => {
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
-// fin de l'affichages de l'ensembles des lignes
+// End of this function 
+
+function sortBills(bills) {
+
+  // Fix bills by sorting them accurate by date
+  // Format Bill if they are in a inaccurate data format (ex: "19 Déc. 2011" TO "19 Dec 2011")
+  // By adding a enDate propriety to the object
+  // if data is in a correct Format like DD-MM-YYYY do nothing
+  const billsFormat = bills.map((bill) => {
+
+    bill.enDate = bill.date;
+
+    bill.enDate = bill.enDate.replace('.', '')
+    bill.enDate = bill.enDate.replace('Déc', 'Dec')
+    bill.enDate = bill.enDate.replace('Avr', 'Apr')
+    bill.enDate = bill.enDate.replace('Mai', 'May')
+    bill.enDate = bill.enDate.replace('Aou', 'Aug')
+
+    return bill
+  })
+
+  return billsFormat.sort((a, b) => new Date(b.enDate) - new Date(a.enDate))
+
+}
+
 
 
 export default ({ data: bills, loading, error }) => {
 
-  // Fix bills by sorting them accurate by date
-  if (bills) {
-    bills = bills.sort((a, b) => new Date(b.date) - new Date(a.date))
-  }
-  // End Fix 
+
 
 
   const modal = () => (`
@@ -83,7 +103,7 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(sortBills(bills))}
           </tbody>
           </table>
         </div>
