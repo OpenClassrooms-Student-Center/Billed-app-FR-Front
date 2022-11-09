@@ -41,6 +41,7 @@ function sortBills(bills) {
 
     bill.enDate = bill.enDate.replace('.', '')
     bill.enDate = bill.enDate.replace('Déc', 'Dec')
+    bill.enDate = bill.enDate.replace('Fév', 'Feb')
     bill.enDate = bill.enDate.replace('Avr', 'Apr')
     bill.enDate = bill.enDate.replace('Mai', 'May')
     bill.enDate = bill.enDate.replace('Aou', 'Aug')
