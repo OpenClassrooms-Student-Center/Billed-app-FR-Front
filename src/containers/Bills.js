@@ -33,7 +33,7 @@ export default class {
 
   getBills = () => {
     if (this.store) {
-
+     
       return this.store
         .bills()
         .list()

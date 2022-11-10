@@ -11,22 +11,19 @@ import router from "../app/Router.js";
 
 
 test('TEST CODE', async () => {
-	beforeEach(() => {
 
-		Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-		window.localStorage.setItem('user', JSON.stringify({
-			type: 'Employee'
-		}))
+	Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+	window.localStorage.setItem('user', JSON.stringify({
+		type: 'Employee'
+	}))
 
-	});
+	const root = document.createElement("div")
+	root.setAttribute("id", "root")
+	document.body.append(root)
+	router()
+	window.onNavigate(ROUTES_PATH.Bills)
 
 
-	const Bills = new billsContainer({
-		document, onNavigate, mockStore, localStorage: window.localStorage
-	})
-	console.log(Bills);
-
-	document.body.innerHTML = BillsUI({ error: 'Erreur 404' })
 
 
 });

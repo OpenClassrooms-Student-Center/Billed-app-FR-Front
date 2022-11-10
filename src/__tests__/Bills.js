@@ -11,6 +11,7 @@ import { bills } from "../fixtures/bills.js"
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import mockStore from "../__mocks__/store"
+import errorStore from "../__mocks__/errorStore"
 import { default as billsContainer } from '../containers/Bills.js';
 import router from "../app/Router.js";
 
@@ -117,7 +118,7 @@ describe("Given I am connected as an employee", () => {
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
       }))
-     
+
     });
 
     afterEach(() => {
@@ -125,17 +126,30 @@ describe("Given I am connected as an employee", () => {
     });
 
 
-    test("fetches bills from  API GET", async () => {
+    test("fetches bills from API GET", async () => {
 
-      document.body.innerHTML = BillsUI({ data: bills })
+      const Bills = new billsContainer({
+        document, onNavigate, mockStore, localStorage: window.localStorage
+      })
+      Bills.store = mockStore;
 
-      await waitFor(() => screen.getByText("Mes notes de frais"))
-
-      const billsNodes = await screen.getByTestId('tbody')
-
-      expect([...billsNodes.children].length).toEqual(4)
+      const getBills = await Bills.getBills();
+      expect(getBills.length).toEqual(4)
 
     })
+
+    test("fetches bills from API GET but Date from API look corrupted", async () => {
+
+      const Bills = new billsContainer({
+        document, onNavigate, errorStore, localStorage: window.localStorage
+      })
+      Bills.store = errorStore;
+
+      const getBills = await Bills.getBills();
+      console.log(getBills);
+
+    })
+
 
 
     test('fetches bills from an API and fails with 404 message error', async () => {
