@@ -1,7 +1,7 @@
 .content {
   width: 100%;
-  margin-top: 76px; 
-  margin-left: 76px; 
+  margin-top: 76px;
+  margin-left: 76px;
   margin-right: 76px;
 }
 
@@ -14,11 +14,15 @@
 }
 
 .content-header {
-  width: 100%; 
-  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-  display: -ms-flexbox;  /* TWEENER - IE 10 */
-  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+  width: 100%;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;
+  /* NEW, Spec - Firefox, Chrome, Opera */
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -26,7 +30,7 @@
   align-items: center;
 }
 
-.content-title{
+.content-title {
   font-style: normal;
   font-weight: 500;
   font-size: 48px;
@@ -63,7 +67,8 @@
   align-items: center;
 }
 
-.table td, .table th {
+.table td,
+.table th {
   border-top: 0px solid #fff !important;
 }
 
@@ -71,7 +76,8 @@
   border-bottom: 0px solid #fff !important;
 }
 
-.table td, .table th {
+.table td,
+.table th {
   border-top: 0px solid #fff !important;
 }
 
@@ -80,10 +86,16 @@ thead {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color:#F3F5FA !important;
+  background-color: #F3F5FA !important;
 }
 
-th, td {
+.thead:first-child,
+th:last-child {
+  text-align: center;
+}
+
+th,
+td {
   padding-left: 40px !important;
   padding-right: 40px !important;
 }
@@ -98,11 +110,11 @@ tr td:nth-of-type(2) {
 }
 
 tr td:nth-of-type(3) {
-  color:#979797;
+  color: #979797;
 }
 
 tr td:nth-of-type(4) {
-  color:#979797;
+  color: #979797;
 }
 
 tr td:nth-of-type(5) {

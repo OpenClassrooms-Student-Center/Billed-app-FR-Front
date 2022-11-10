@@ -17,6 +17,8 @@ import router from "../app/Router.js";
 
 
 
+
+
 describe("Given I am connected as an employee", () => {
 
   describe("When I am on Bills Page", () => {
@@ -30,6 +32,8 @@ describe("Given I am connected as an employee", () => {
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
       }))
+
+
       const root = document.createElement("div")
       root.setAttribute("id", "root")
       document.body.append(root)
@@ -105,18 +109,15 @@ describe("Given I am connected as an employee", () => {
 
 
 
-  describe('Fetch Bill API', () => {
+  describe('When Fetch Bill API', () => {
     beforeEach(() => {
       jest.spyOn(mockStore, 'bills');
-      
+
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
       }))
-      const root = document.createElement("div")
-      root.setAttribute("id", "root")
-      document.body.append(root)
-      router()
+     
     });
 
     afterEach(() => {

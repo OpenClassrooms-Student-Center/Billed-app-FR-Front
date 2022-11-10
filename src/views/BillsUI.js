@@ -25,7 +25,18 @@ const row = (bill) => {
 
 // If data contains something we ask to run the Build Table row function for each Bill 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+
+  if (data && data.length) {
+    let billsHTML = "";
+    data.map(function (bill) {
+      if (bill.amount) {
+        billsHTML += row(bill);
+      }
+    })
+
+    return billsHTML;
+  }
+
 }
 // End of this function 
 
@@ -36,6 +47,7 @@ function sortBills(bills) {
   // By adding a enDate propriety to the object
   // if data is in a correct Format like DD-MM-YYYY do nothing
   const billsFormat = bills.map((bill) => {
+
 
     bill.enDate = bill.date;
 
@@ -48,6 +60,8 @@ function sortBills(bills) {
 
     return bill
   })
+
+
 
   return billsFormat.sort((a, b) => new Date(b.enDate) - new Date(a.enDate))
 

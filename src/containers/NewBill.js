@@ -15,6 +15,7 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
@@ -26,7 +27,7 @@ export default class NewBill {
       return;
     }
     // End fix issue 
-    
+
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length - 1]
     const formData = new FormData()
