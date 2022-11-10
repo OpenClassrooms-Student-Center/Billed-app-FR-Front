@@ -126,7 +126,7 @@ describe("Given I am connected as an employee", () => {
     });
 
 
-    test("fetches bills from API GET", async () => {
+    test("Then bills from API GET", async () => {
 
       const Bills = new billsContainer({
         document, onNavigate, mockStore, localStorage: window.localStorage
@@ -138,7 +138,7 @@ describe("Given I am connected as an employee", () => {
 
     })
 
-    test("fetches bills from API GET but Date from API look corrupted", async () => {
+    test("Then bills from API GET but Date from API look corrupted", async () => {
 
       const Bills = new billsContainer({
         document, onNavigate, errorStore, localStorage: window.localStorage
@@ -152,7 +152,7 @@ describe("Given I am connected as an employee", () => {
 
 
 
-    test('fetches bills from an API and fails with 404 message error', async () => {
+    test('Then messages from an API and fails with 404 message error', async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list: () => {
@@ -167,7 +167,7 @@ describe("Given I am connected as an employee", () => {
       expect(message).toBeTruthy()
     });
 
-    test('fetches messages from an API and fails with 500 message error', async () => {
+    test('Then messages from an API and fails with 500 message error', async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list: () => {

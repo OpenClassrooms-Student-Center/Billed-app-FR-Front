@@ -46,6 +46,10 @@ function sortBills(bills) {
   // Format Bill if they are in a inaccurate data format (ex: "19 Déc. 2011" TO "19 Dec 2011")
   // By adding a enDate propriety to the object
   // if data is in a correct Format like DD-MM-YYYY do nothing
+
+
+  if (!bills) { return bills } // This line is here to allow Login Unit Tests to Run (else it broke Login Units Tests)
+
   const billsFormat = bills.map((bill) => {
 
 
