@@ -24,4 +24,3 @@ export const ROUTES = ({ pathname, data, error, loading }) => {
       return LoginUI({ data, error, loading })
   }
 }
-
