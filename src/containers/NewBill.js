@@ -21,11 +21,7 @@ export default class NewBill {
     e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
-    // const checkFileType = (string) => {
-    //   const pattern = /\.(jpg|jpeg|pdf)$/i;
-    //   return pattern.test(string);
-    // };
-    // if (!checkFileType(e.target.value)) return;
+
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
     const formData = new FormData();
