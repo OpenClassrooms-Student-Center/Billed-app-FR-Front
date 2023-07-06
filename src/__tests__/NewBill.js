@@ -69,7 +69,7 @@ describe("Given I am connected as an employee", () => {
       expect(selectedFile.files).toHaveLength(1);
     });
   });
-  describe("When I do fill fields in correct format and I click on the send button", () => {
+  describe("When I do fill out the fields in correct format and I click on the send button", () => {
     test("Then it should sent the proper form", () => {
       document.body.innerHTML = NewBillUI();
       const inputData = {
