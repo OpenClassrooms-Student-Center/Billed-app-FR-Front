@@ -20,12 +20,15 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+    const fileExtension = fileName.split('.').pop()
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
 
-    this.store
+    // line below checks authorized extensions in backend's file ./controllers/bill.js before upload
+    if (fileName.match(/\.(jpg|jpeg|png|gif)$/)) {
+      this.store
       .bills()
       .create({
         data: formData,
@@ -39,6 +42,10 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+    } else {
+      this.document.querySelector(`input[data-testid="file"]`).value = null
+      alert('Wrong file format')
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
