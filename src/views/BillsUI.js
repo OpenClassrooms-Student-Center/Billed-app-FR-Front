@@ -20,7 +20,14 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  // correction of issue 2 : bills must be diplayed in reverse order
+  if(data && data.length) {
+    data = data.sort((a, b) => new Date(b.date) - new Date(a.date))
+    return data.map(bill => row(bill)).join("")
+  }
+  return ""
+  // old stuff
+  // return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
