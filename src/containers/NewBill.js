@@ -19,6 +19,15 @@ export default class NewBill {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
+    // Add exclusion if the file extension not correspond to the authorized extensions.
+    console.log(filePath[filePath.length-1].split('.')[1])
+    const authorizedExtensions = ['jpg', 'jpeg', 'png']
+    const fileExtension = filePath[filePath.length-1].split('.')[1]
+    if (!authorizedExtensions.includes(fileExtension)) {
+      e.target.value = ''
+      alert('Seuls les formats jpg, jpeg et png sont autorisés')
+      return
+    }
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
