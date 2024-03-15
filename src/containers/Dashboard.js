@@ -86,6 +86,7 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
+    console.log({bill})
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
@@ -105,6 +106,11 @@ export default class {
       $('.vertical-navbar').css({ height: '120vh' })
       this.counter ++
     }
+    if(!bill.fileUrl.includes("null")){
+      $('#icon-eye-d').click(this.handleClickIconEye)
+    }
+    $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
+    $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
   }
 
   handleAcceptSubmit = (e, bill) => {
@@ -146,8 +152,8 @@ export default class {
       //! Correction of issue 4 : each card could be selected with all status opened, condition use to not replicate the click event
       if(bill.status === getStatus(this.index)) {
         $(`#open-bill${bill.id}`).on("click", (e) => this.handleEditTicket(e, bill, bills))
+        // $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills)) //! original
       }
-      // $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills)) //! original
     })
 
     return bills
