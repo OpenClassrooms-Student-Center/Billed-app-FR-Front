@@ -17,10 +17,12 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
+    //console.log(e.target.value)
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
+    //console.log(filePath)
     // Add exclusion if the file extension not correspond to the authorized extensions.
-    console.log(filePath[filePath.length-1].split('.')[1])
+    //console.log(filePath[filePath.length-1].split('.')[1])
     const authorizedExtensions = ['jpg', 'jpeg', 'png']
     const fileExtension = filePath[filePath.length-1].split('.')[1]
     if (!authorizedExtensions.includes(fileExtension)) {
@@ -33,7 +35,6 @@ export default class NewBill {
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
-
     this.store
       .bills()
       .create({
@@ -43,7 +44,7 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
-        console.log(fileUrl)
+        // console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
@@ -51,7 +52,7 @@ export default class NewBill {
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    //console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
