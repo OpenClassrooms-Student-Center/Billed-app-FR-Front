@@ -20,8 +20,10 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
+  console.log(data)
   // correction of issue 2 : bills must be diplayed in reverse order
   if(data && data.length) {
+    data = data.filter(bill => bill.status !== undefined)
     data = data.sort((a, b) => new Date(b.date) - new Date(a.date))
     return data.map(bill => row(bill)).join("")
   }
