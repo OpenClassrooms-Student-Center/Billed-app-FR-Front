@@ -63,35 +63,35 @@ describe("Given I am connected as an employee", () => {
       expect(window.alert.mock.calls.length).toBeGreaterThanOrEqual(1)
     })
     test("Then the file should be accepted if the extension is correct and the backend should receive the file and email", async () => {
-     //// Generate Dom for NewBill
-     //document.body.innerHTML = NewBillUI()
-     ////Create a new file
-     //const mockFile = new File([''], 'file.test.jpg', { type: 'image/jpeg' })
-     //// Create an email constant and a new formData object
-     ////const email = 'test@example.com'
-     //const email = JSON.parse(localStorageMock.getItem("user")).email
-     //const formData = new FormData()
-     //formData.append('file', mockFile)
-     //formData.append('email', email)
+     // Generate Dom for NewBill
+     document.body.innerHTML = NewBillUI()
+     //Create a new file
+     const mockFile = new File([''], 'file.test.jpg', { type: 'image/jpeg' })
+     // Create an email constant and a new formData object
+     Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', {
+        type: 'Employee',
+        email: 'test@example2.com',
+      })
+     const email = JSON.parse(window.localStorage.getItem("user")).email
+     const formData = new FormData()
+     formData.append('file', mockFile)
+     formData.append('email', email)
 
-     //const mockUpdateFile = jest.fn()
-     //const mockStore = {
-     //  update: mockUpdateFile
-     //}
 
-     //const onNavigate = jest.fn()
-     //const newBill = new NewBill({
-     //  document, onNavigate, store: mockStore, localStorage: localStorageMock
-     //})
-     //const handleChangeFile = jest.fn(newBill.handleChangeFile)
-     //const file = screen.getByTestId('file')
-     //file.addEventListener('change', (e) => handleChangeFile(e))
-     //userEvent.upload(file, mockFile)
+     const onNavigate = jest.fn()
+     const newBill = new NewBill({
+       document, onNavigate, store: mockStore, localStorage: localStorageMock
+     })
+     const handleChangeFile = jest.fn(newBill.handleChangeFile)
+     const file = screen.getByTestId('file')
+     file.addEventListener('change', (e) => handleChangeFile(e))
+     userEvent.upload(file, mockFile)
 
-     //expect(handleChangeFile).toHaveBeenCalled()
-     //
-     //expect(formData.get('file')).toEqual(mockFile)
-     //expect(formData.get('email')).toEqual(email)
+     expect(handleChangeFile).toHaveBeenCalled()
+     
+     expect(formData.get('file')).toEqual(mockFile)
+     expect(formData.get('email')).toEqual(email)
 
     })
   })
@@ -103,31 +103,83 @@ describe("Given I am connected as an employee", () => {
         document, onNavigate, store: mockStore, localStorage: localStorageMock
       })
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      window.localStorage.setItem('user', JSON.stringify({
+      window.localStorage.setItem('user', {
         type: 'Employee',
-        email: 'test@example'
-      }))  
+        email: 'test@example2.com'
+      })  
       const email = JSON.parse(window.localStorage.getItem("user")).email
-      console.log(email)
+      const expectedPromiseResult = {
+        fileUrl: 'https://localhost:3456/images/test.jpg',
+        key: '1234'
+      }
+      const mockFile = new File([''], 'test.jpg', { type: 'image/jpeg' })
+      // Select form fiels
+      const typeSelect = screen.getByTestId('expense-type')
+      const nameInput = screen.getByTestId('expense-name')
+      const amountInput = screen.getByTestId('amount')
+      const dateInput = screen.getByTestId('datepicker')
+      const vatInput = screen.getByTestId('vat')
+      const pctInput = screen.getByTestId('pct')
+      const commentaryInput = screen.getByTestId('commentary')
+
+      // Hydrate form fields
+      typeSelect.value = 'Transports'
+      fireEvent.change(typeSelect)
+      nameInput.value = 'test'
+      fireEvent.change(nameInput)
+      amountInput.value = '100'
+      fireEvent.change(amountInput)
+      dateInput.value = '2022-01-01'
+      fireEvent.change(dateInput)
+      vatInput.value = '100'
+      fireEvent.change(vatInput)
+      pctInput.value = '20'
+      fireEvent.change(pctInput)
+      commentaryInput.value = 'test'
+      fireEvent.change(commentaryInput)
+      const file = screen.getByTestId('file')
+      file.addEventListener('change', (e) => newBill.handleChangeFile(e))
+      userEvent.upload(file, mockFile)
+      // Create bill object
+      const filePath = expectedPromiseResult.fileUrl.split(/\//g)
+      const fileName = filePath[filePath.length-1]
       const bill = {
         email,
-        type: 'Transports',
-        name:  'test',
-        amount: 100,
-        date: '2022-01-01',
-        vat: '100',
-        pct: 20,
-        commentary: 'test',
-        fileUrl: 'https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=4df6ed2c-12c8-42a2-b013-346c1346f732',
-        fileName: 'preview-facture-free-201801-pdf-1.jpg',
+        type: typeSelect.value,
+        name:  nameInput.value,
+        amount: amountInput.value,
+        date: dateInput.value,
+        vat: vatInput.value,
+        pct: pctInput.value,
+        commentary: commentaryInput.value,
+        fileUrl: expectedPromiseResult.fileUrl,
+        fileName: fileName,
         status: 'pending'
       }
+      console.log(bill.fileUrl)
+      console.log(bill.fileName)
+      console.log(window.localStorage.getItem('file'))
+      window.localStorage.setItem('file', {
+        fileUrl: bill.fileUrl,
+        fileName: bill.fileName
+      })  
+      const promiseNewBill = await waitFor(() => newBill.store.bills().create(bill))
+      console.log(promiseNewBill)
+      expect(promiseNewBill).toEqual(expectedPromiseResult)
+      
+      //const formData = new FormData()
+      //formData.append('file', mockFile)
+      //formData.append('email', email)
+      
+
       const form = screen.getByTestId('form-new-bill')
       const handleSubmit = jest.fn(() => newBill.updateBill(bill))
       form.addEventListener('submit', handleSubmit)
       fireEvent.submit(form)
       expect(handleSubmit).toHaveBeenCalled()
+      console.log(handleSubmit)
       expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH.Bills)
+
     })
   })
 })
